@@ -4,6 +4,8 @@ import com.github.cc3002.yugi.controller.handlers.CardPlayedHandler;
 import com.github.cc3002.yugi.controller.handlers.IHandler;
 import com.github.cc3002.yugi.model.Player;
 import com.github.cc3002.yugi.model.cards.ICard;
+import org.jetbrains.annotations.NotNull;
+
 import java.beans.PropertyChangeSupport;
 
 /**
@@ -20,7 +22,7 @@ public class GameController {
     player.addCardPlayedListener(cardPlayedHandler);
   }
 
-  public void onCardPlayed(ICard playedCard) {
+  public void onCardPlayed(@NotNull ICard playedCard) {
     onCardPlayedNotification.firePropertyChange("CARD_PLAYED", null, playedCard);
   }
 }
