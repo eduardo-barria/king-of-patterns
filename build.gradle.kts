@@ -17,7 +17,7 @@ dependencies {
 }
 
 application {
-  mainClassName = "$moduleName/com.github.cc3002.yugi.gui.KingOfPatterns"
+  mainClassName = "com.github.cc3002.yugi.gui.KingOfPatterns"
 }
 
 javafx {
@@ -26,5 +26,5 @@ javafx {
 }
 
 configure<JavaPluginConvention> {
-  sourceCompatibility = JavaVersion.VERSION_HIGHER
+  sourceCompatibility = JavaVersion.VERSION_14
 }
