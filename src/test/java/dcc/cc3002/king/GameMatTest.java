@@ -26,8 +26,10 @@ class GameMatTest {
   void monsterZoneTest() {
     assertTrue(testMat.getMonsterZone().isEmpty());
     for (int i = 0; i < 5; i++) {
-      testMat.getMonsterZone().add(new Card());
+      testMat.addCardToZone(new Card(), "MONSTER");
       assertEquals(i + 1, testMat.getMonsterZone().size());
     }
+    testMat.addCardToZone(new Card(), "MONSTER");
+    assertEquals(5, testMat.getMonsterZone().size());
   }
 }

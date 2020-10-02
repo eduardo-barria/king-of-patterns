@@ -19,6 +19,12 @@ public class GameMat {
   }
 
   public List<Card> getMonsterZone() {
-    return monsterZone;
+    return List.copyOf(monsterZone);
+  }
+
+  public void addCardToZone(Card card, String zone) {
+    if (zone.equals("MONSTER")) {
+      monsterZone.add(card);
+    }
   }
 }
