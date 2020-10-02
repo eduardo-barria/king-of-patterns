@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "uchile.dcc.cc3002"
-version = "1.0-B.1"
+version = "1.0-BETA"
 
 repositories {
   mavenCentral()
