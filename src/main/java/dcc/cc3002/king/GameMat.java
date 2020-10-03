@@ -7,18 +7,31 @@ import java.util.Objects;
 public class GameMat {
 
   private final List<Card> monsterZone = new ArrayList<>();
+  private final List<Card> magicZone = new ArrayList<>();
 
   /**
    * Adds a card to the monster zone.
    */
   public void addMonsterCard(Card card) {
-    if (monsterZone.size() < 5) {
-      monsterZone.add(card);
+    addCardTo(monsterZone, card);
+  }
+
+  private void addCardTo(final List<Card> zone, final Card card) {
+    if (zone.size() < 5) {
+      zone.add(card);
     }
+  }
+
+  public void addMagicCard(final Card card) {
+    addCardTo(magicZone, card);
   }
 
   public List<Card> getMonsterZone() {
     return List.copyOf(monsterZone);
+  }
+
+  public List<Card> getMagicZone() {
+    return List.copyOf(magicZone);
   }
 
   @Override
