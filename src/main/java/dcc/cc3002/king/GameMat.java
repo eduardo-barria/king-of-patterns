@@ -8,6 +8,19 @@ public class GameMat {
 
   private final List<Card> monsterZone = new ArrayList<>();
 
+  /**
+   * Adds a card to the monster zone.
+   */
+  public void addMonsterCard(Card card) {
+    if (monsterZone.size() < 5) {
+      monsterZone.add(card);
+    }
+  }
+
+  public List<Card> getMonsterZone() {
+    return List.copyOf(monsterZone);
+  }
+
   @Override
   public int hashCode() {
     return Objects.hashCode(GameMat.class);
@@ -16,15 +29,5 @@ public class GameMat {
   @Override
   public boolean equals(final Object obj) {
     return obj instanceof GameMat;
-  }
-
-  public List<Card> getMonsterZone() {
-    return List.copyOf(monsterZone);
-  }
-
-  public void addCardToZone(Card card, String zone) {
-    if (zone.equals("MONSTER")) {
-      monsterZone.add(card);
-    }
   }
 }
