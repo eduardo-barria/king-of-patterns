@@ -14,16 +14,16 @@ import org.junit.jupiter.api.Test;
  *
  * @author Ignacio Slater M.
  */
-class GameMatTest {
+class PlayerMatTest {
 
-  private GameMat testMat;
+  private PlayerMat testMat;
 
   /**
    * Initializes a test game mat.
    */
   @BeforeEach
   void setUp() {
-    testMat = new GameMat();
+    testMat = new PlayerMat();
   }
 
   /**
@@ -31,12 +31,12 @@ class GameMatTest {
    * <p>
    * This tests the equals and hashCode methods.
    *
-   * @see GameMat#equals(Object)
-   * @see GameMat#hashCode()
+   * @see PlayerMat#equals(Object)
+   * @see PlayerMat#hashCode()
    */
   @Test
   void basicTest() {
-    var expectedMat = new GameMat();
+    var expectedMat = new PlayerMat();
     assertEquals(expectedMat, testMat);
     assertEquals(expectedMat.hashCode(), testMat.hashCode());
   }
@@ -44,8 +44,8 @@ class GameMatTest {
   /**
    * Checks that monster cards are added correctly to the mat.
    *
-   * @see GameMat#getMonsterZone()
-   * @see GameMat#addMonsterCard(Card)
+   * @see PlayerMat#getMonsterZone()
+   * @see PlayerMat#addMonsterCard(Card)
    */
   @Test
   void monsterZoneTest() {
@@ -57,8 +57,8 @@ class GameMatTest {
   /**
    * Checks that magic cards are added correctly to the mat.
    *
-   * @see GameMat#getMonsterZone()
-   * @see GameMat#addMonsterCard(Card)
+   * @see PlayerMat#getMonsterZone()
+   * @see PlayerMat#addMonsterCard(Card)
    */
   @Test
   void magicZoneTest() {
