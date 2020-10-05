@@ -1,6 +1,7 @@
 package dcc.cc3002.king;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
@@ -36,9 +37,21 @@ class PlayerMatTest {
    */
   @Test
   void basicTest() {
+    var sameMat = testMat;
+    assertEquals(sameMat, testMat);
     var expectedMat = new PlayerMat();
+    assertNotEquals(testMat, new Object());
     assertEquals(expectedMat, testMat);
     assertEquals(expectedMat.hashCode(), testMat.hashCode());
+    // This lines will assure the branch coverage
+    testMat.addMagicCard(new Card());
+    assertNotEquals(testMat, new PlayerMat());
+    assertNotEquals(testMat.hashCode(), new PlayerMat().hashCode());
+    testMat = new PlayerMat();
+    testMat.addMonsterCard(new Card());
+    assertNotEquals(testMat, new PlayerMat());
+    assertNotEquals(testMat.hashCode(), new PlayerMat().hashCode());
+    testMat.addMagicCard(new Card());
   }
 
   /**
