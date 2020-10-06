@@ -4,8 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import dcc.cc3002.king.cards.Card;
-import dcc.cc3002.king.cards.CardType;
+import dcc.cc3002.king.cards.AbstractCard;
+import dcc.cc3002.king.cards.MagicCard;
+import dcc.cc3002.king.cards.MonsterCard;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -46,27 +47,27 @@ class PlayerMatTest {
     assertEquals(expectedMat, testMat);
     assertEquals(expectedMat.hashCode(), testMat.hashCode());
     // This lines will assure the branch coverage
-    testMat.addMagicCard(new Card(CardType.MAGIC));
+    testMat.addMagicCard(new MagicCard());
     assertNotEquals(testMat, new PlayerMat());
     assertNotEquals(testMat.hashCode(), new PlayerMat().hashCode());
     testMat = new PlayerMat();
-    testMat.addMonsterCard(new Card(CardType.MONSTER));
+    testMat.addMonsterCard(new MonsterCard());
     assertNotEquals(testMat, new PlayerMat());
     assertNotEquals(testMat.hashCode(), new PlayerMat().hashCode());
-    testMat.addMagicCard(new Card(CardType.MAGIC));
+    testMat.addMagicCard(new MagicCard());
   }
 
   /**
    * Checks that monster cards are added correctly to the mat.
    *
    * @see PlayerMat#getMonsterZone()
-   * @see PlayerMat#addMonsterCard(Card)
+   * @see PlayerMat#addMonsterCard(AbstractCard)
    */
   @Test
   void monsterZoneTest() {
     // Using this notation we can pass method references to the test and reduce code
     // duplication.
-    testCardZone(testMat::getMonsterZone, testMat::addMonsterCard, CardType.MONSTER);
+    testCardZone(testMat::getMonsterZone, testMat::addMonsterCard, MonsterCard::new);
 
   }
 
@@ -76,20 +77,25 @@ class PlayerMatTest {
    * @param zoneGetter
    *     a getter method.
    *     A supplier is a method that receives no parameters and returns an object.
-   *     In this case, it returns an object of type {@code List<Card>}.
+   *     In this case, it returns an object of type {@code List<AbstractCard>}.
    * @param cardAdder
    *     an adder method.
    *     A consumer is a method that receives a parameter and returns nothing.
-   *     In this case, it receives an object of type {@code Card}.
+   *     In this case, it receives an object of type {@code AbstractCard}.
+   * @param cardFactory
+   *     the card type constructor.
+   *     In this context a factory is a functional interface that creates elements of type
+   *     {@code AbstractCard}.
    */
-  private void testCardZone(final Supplier<List<Card>> zoneGetter,
-      final Consumer<Card> cardAdder, final CardType type) {
+  private void testCardZone(final Supplier<List<AbstractCard>> zoneGetter,
+      final Consumer<AbstractCard> cardAdder,
+      final CardFactory<AbstractCard> cardFactory) {
     assertTrue(zoneGetter.get().isEmpty());
     for (int i = 0; i < 5; i++) {
-      cardAdder.accept(new Card(type));
+      cardAdder.accept(cardFactory.make());
       assertEquals(i + 1, zoneGetter.get().size());
     }
-    cardAdder.accept(new Card(type));
+    cardAdder.accept(cardFactory.make());
     assertEquals(5, zoneGetter.get().size());
   }
 
@@ -97,12 +103,17 @@ class PlayerMatTest {
    * Checks that magic cards are added correctly to the mat.
    *
    * @see PlayerMat#getMonsterZone()
-   * @see PlayerMat#addMonsterCard(Card)
+   * @see PlayerMat#addMonsterCard(AbstractCard)
    */
   @Test
   void magicZoneTest() {
     // Using this notation we can pass method references to the test and reduce code
     // duplication.
-    testCardZone(testMat::getMagicZone, testMat::addMagicCard, CardType.MAGIC);
+    testCardZone(testMat::getMagicZone, testMat::addMagicCard, MagicCard::new);
+  }
+
+  private interface CardFactory<T extends AbstractCard> {
+
+    T make();
   }
 }

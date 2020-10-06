@@ -5,32 +5,33 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import dcc.cc3002.king.cards.Card;
-import dcc.cc3002.king.cards.CardType;
+import dcc.cc3002.king.cards.AbstractCard;
+import dcc.cc3002.king.cards.MagicCard;
+import dcc.cc3002.king.cards.MonsterCard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class CardTest {
+abstract class AbstractCardTest {
 
-  private Card testMonsterCard;
-  private Card testMagicCard;
+  private AbstractCard testMonsterCard;
+  private AbstractCard testMagicCard;
   private PlayerMat testMat;
 
   @BeforeEach
   void setUp() {
-    testMonsterCard = new Card(CardType.MONSTER);
-    testMagicCard = new Card(CardType.MAGIC);
+    testMonsterCard = new MonsterCard();
+    testMagicCard = new MagicCard();
     testMat = new PlayerMat();
   }
 
   @Test
   void basicTest() {
-    var expectedMonsterCard = new Card(CardType.MONSTER);
+    var expectedMonsterCard = new MonsterCard();
     var sameMonsterCard = testMonsterCard;
     assertEquals(sameMonsterCard, testMonsterCard);
     assertEquals(expectedMonsterCard, testMonsterCard);
     assertEquals(expectedMonsterCard.hashCode(), testMonsterCard.hashCode());
-    var expectedMagicCard = new Card(CardType.MAGIC);
+    var expectedMagicCard = new MagicCard();
     var sameMagicCard = testMagicCard;
     assertEquals(sameMagicCard, testMagicCard);
     assertEquals(expectedMagicCard, testMagicCard);

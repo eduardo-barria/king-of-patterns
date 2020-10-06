@@ -1,6 +1,6 @@
 package dcc.cc3002.king;
 
-import dcc.cc3002.king.cards.Card;
+import dcc.cc3002.king.cards.AbstractCard;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -12,20 +12,20 @@ import java.util.Objects;
  */
 public class PlayerMat {
 
-  private final List<Card> monsterZone = new ArrayList<>();
-  private final List<Card> magicZone = new ArrayList<>();
+  private final List<AbstractCard> monsterZone = new ArrayList<>();
+  private final List<AbstractCard> magicZone = new ArrayList<>();
 
   /**
    * Adds a card to the monster zone.
    */
-  public void addMonsterCard(Card card) {
+  public void addMonsterCard(AbstractCard card) {
     addCardTo(monsterZone, card);
   }
 
   /**
    * Adds a card to a zone in the game's mat.
    */
-  private void addCardTo(final List<Card> zone, final Card card) {
+  private void addCardTo(final List<AbstractCard> zone, final AbstractCard card) {
     if (zone.size() < 5) {
       zone.add(card);
     }
@@ -34,7 +34,7 @@ public class PlayerMat {
   /**
    * Adds a card to the magic zone.
    */
-  public void addMagicCard(final Card card) {
+  public void addMagicCard(final AbstractCard card) {
     addCardTo(magicZone, card);
   }
 
@@ -56,11 +56,11 @@ public class PlayerMat {
         getMagicZone().equals(playerMat.getMagicZone());
   }
 
-  public List<Card> getMonsterZone() {
+  public List<AbstractCard> getMonsterZone() {
     return List.copyOf(monsterZone);
   }
 
-  public List<Card> getMagicZone() {
+  public List<AbstractCard> getMagicZone() {
     return List.copyOf(magicZone);
   }
 }

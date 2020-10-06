@@ -10,11 +10,11 @@ import java.util.Objects;
  *
  * @author Ignacio Slater Muñoz
  */
-public class Card {
+public abstract class AbstractCard {
 
   private final CardType type;
 
-  public Card(final CardType type) {
+  public AbstractCard(final CardType type) {
     this.type = type;
   }
 
@@ -28,10 +28,10 @@ public class Card {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof Card)) {
+    if (!(o instanceof AbstractCard)) {
       return false;
     }
-    final Card card = (Card) o;
+    final AbstractCard card = (AbstractCard) o;
     return type == card.type;
   }
 
