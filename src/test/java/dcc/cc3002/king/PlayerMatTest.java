@@ -65,6 +65,7 @@ class PlayerMatTest {
     // Using this notation we can pass method references to the test and reduce code
     // duplication.
     testCardZone(testMat::getMonsterZone, testMat::addMonsterCard);
+
   }
 
   /**
@@ -79,6 +80,8 @@ class PlayerMatTest {
     // duplication.
     testCardZone(testMat::getMagicZone, testMat::addMagicCard);
   }
+
+
 
   /**
    * Tests that a card is added correctly to the appropriate zone.
