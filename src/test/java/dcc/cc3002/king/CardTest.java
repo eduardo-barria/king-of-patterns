@@ -24,11 +24,16 @@ class CardTest {
   @Test
   void basicTest() {
     var expectedMonsterCard = new Card(CardType.MONSTER);
+    var sameMonsterCard = testMonsterCard;
+    assertEquals(sameMonsterCard, testMonsterCard);
     assertEquals(expectedMonsterCard, testMonsterCard);
     assertEquals(expectedMonsterCard.hashCode(), testMonsterCard.hashCode());
     var expectedMagicCard = new Card(CardType.MAGIC);
+    var sameMagicCard = testMagicCard;
+    assertEquals(sameMagicCard, testMagicCard);
     assertEquals(expectedMagicCard, testMagicCard);
     assertEquals(expectedMagicCard.hashCode(), testMagicCard.hashCode());
     assertNotEquals(testMonsterCard, testMagicCard);
+    assertNotEquals(testMonsterCard, new Object());
   }
 }

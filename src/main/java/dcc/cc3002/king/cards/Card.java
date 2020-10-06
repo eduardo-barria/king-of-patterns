@@ -18,12 +18,19 @@ public class Card {
   }
 
   @Override
-  public int hashCode() {
-    return Objects.hash(Card.class);
+  public boolean equals(final Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof Card)) {
+      return false;
+    }
+    final Card card = (Card) o;
+    return type == card.type;
   }
 
   @Override
-  public boolean equals(final Object obj) {
-    return obj instanceof Card;
+  public int hashCode() {
+    return Objects.hash(type);
   }
 }
