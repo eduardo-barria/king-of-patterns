@@ -1,7 +1,9 @@
 package dcc.cc3002.king;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import dcc.cc3002.king.cards.Card;
 import dcc.cc3002.king.cards.CardType;
@@ -35,5 +37,23 @@ class CardTest {
     assertEquals(expectedMagicCard.hashCode(), testMagicCard.hashCode());
     assertNotEquals(testMonsterCard, testMagicCard);
     assertNotEquals(testMonsterCard, new Object());
+  }
+
+  @Test
+  void playMonsterCardTest() {
+    assertFalse(testMat.getMonsterZone().contains(testMonsterCard));
+    assertFalse(testMat.getMagicZone().contains(testMonsterCard));
+    testMonsterCard.playTo(testMat);
+    assertTrue(testMat.getMonsterZone().contains(testMonsterCard));
+    assertFalse(testMat.getMagicZone().contains(testMonsterCard));
+  }
+
+  @Test
+  void playMagicCardTest() {
+    assertFalse(testMat.getMonsterZone().contains(testMagicCard));
+    assertFalse(testMat.getMagicZone().contains(testMagicCard));
+    testMagicCard.playTo(testMat);
+    assertFalse(testMat.getMonsterZone().contains(testMagicCard));
+    assertTrue(testMat.getMagicZone().contains(testMagicCard));
   }
 }

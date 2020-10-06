@@ -1,5 +1,6 @@
 package dcc.cc3002.king.cards;
 
+import dcc.cc3002.king.PlayerMat;
 import java.util.Objects;
 
 /**
@@ -18,6 +19,11 @@ public class Card {
   }
 
   @Override
+  public int hashCode() {
+    return Objects.hash(type);
+  }
+
+  @Override
   public boolean equals(final Object o) {
     if (this == o) {
       return true;
@@ -29,8 +35,10 @@ public class Card {
     return type == card.type;
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(type);
+  /**
+   * Plays this card to it's corresponding zone on the player's mat.
+   */
+  public void playTo(final PlayerMat playerMat) {
+
   }
 }
