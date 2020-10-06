@@ -2,6 +2,8 @@
 
 ## Version 1.0
 
+- ``1.0-B.205`` Cards: Implemented ``playCard`` mechanic (breaks Single Responsibility
+    Principle)
 - ``1.0-B.205`` Cards: Failing tests for playing magic and monster cards
 - ``1.0-B.204`` Cards: Fixed basic test
 - ``1.0-B.203`` Cards: Added type to cards and failing tests

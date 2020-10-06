@@ -39,6 +39,10 @@ public class Card {
    * Plays this card to it's corresponding zone on the player's mat.
    */
   public void playTo(final PlayerMat playerMat) {
-
+    if (type == CardType.MAGIC) {
+      playerMat.addMagicCard(this);
+    } else if (type == CardType.MONSTER) {
+      playerMat.addMonsterCard(this);
+    }
   }
 }
