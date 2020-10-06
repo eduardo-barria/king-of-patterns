@@ -1,23 +1,34 @@
 package dcc.cc3002.king;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import dcc.cc3002.king.cards.Card;
+import dcc.cc3002.king.cards.CardType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class CardTest {
 
-  private Card testCard;
+  private Card testMonsterCard;
+  private Card testMagicCard;
+  private PlayerMat testMat;
 
   @BeforeEach
   void setUp() {
-    testCard = new Card();
+    testMonsterCard = new Card(CardType.MONSTER);
+    testMagicCard = new Card(CardType.MAGIC);
+    testMat = new PlayerMat();
   }
 
   @Test
   void basicTest() {
-    var expectedCard = new Card();
-    assertEquals(expectedCard, testCard);
-    assertEquals(expectedCard.hashCode(), testCard.hashCode());
+    var expectedMonsterCard = new Card(CardType.MONSTER);
+    assertEquals(expectedMonsterCard, testMonsterCard);
+    assertEquals(expectedMonsterCard.hashCode(), testMonsterCard.hashCode());
+    var expectedMagicCard = new Card(CardType.MAGIC);
+    assertEquals(expectedMagicCard, testMagicCard);
+    assertEquals(expectedMagicCard.hashCode(), testMagicCard.hashCode());
+    assertNotEquals(testMonsterCard, testMagicCard);
   }
 }

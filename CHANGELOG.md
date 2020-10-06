@@ -2,6 +2,7 @@
 
 ## Version 1.0
 
+- ``1.0-B.203`` Cards: Added type to cards and failing tests
 - ``1.0-B.202`` Cards: Implemented equals and hashCode methods
 - ``1.0-B.201`` Cards: Created failing basic tests
 - ``1.0-B.109`` Game mat: Modified tests to adapt to new equals and hash methods

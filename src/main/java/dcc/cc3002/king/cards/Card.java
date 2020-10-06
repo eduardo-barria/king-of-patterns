@@ -1,4 +1,4 @@
-package dcc.cc3002.king;
+package dcc.cc3002.king.cards;
 
 import java.util.Objects;
 
@@ -10,6 +10,12 @@ import java.util.Objects;
  * @author Ignacio Slater Muñoz
  */
 public class Card {
+
+  private final CardType type;
+
+  public Card(final CardType type) {
+    this.type = type;
+  }
 
   @Override
   public int hashCode() {
