@@ -4,11 +4,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test suite for the magic cards.
+ * Test suite for the monster cards.
  *
  * @author Ignacio Slater M.
  */
-class MagicCardTest extends AbstractCardTest {
+class MonsterCardTest extends AbstractCardTest {
 
   /**
    * Initializes the needed fields for the tests.
@@ -16,18 +16,18 @@ class MagicCardTest extends AbstractCardTest {
   @BeforeEach
   void setUp() {
     super.initMat();
-    testCard = new MagicCard();
+    testCard = new MonsterCard();
   }
 
   @Override
   @Test
   void basicTest() {
-    checkCardConstruction(MagicCard::new, MonsterCard::new);
+    checkCardConstruction(MonsterCard::new, MagicCard::new);
   }
 
   @Override
   @Test
   void playCardTest() {
-    checkPlayedCard(testMat::getMagicZone, testMat::getMonsterZone);
+    checkPlayedCard(testMat::getMonsterZone, testMat::getMagicZone);
   }
 }
