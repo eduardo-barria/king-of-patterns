@@ -68,7 +68,6 @@ class PlayerMatTest {
     // Using this notation we can pass method references to the test and reduce code
     // duplication.
     testCardZone(testMat::getMonsterZone, testMat::addMonsterCard, MonsterCard::new);
-
   }
 
   /**
@@ -89,7 +88,7 @@ class PlayerMatTest {
    */
   private void testCardZone(final Supplier<List<AbstractCard>> zoneGetter,
       final Consumer<AbstractCard> cardAdder,
-      final CardFactory<AbstractCard> cardFactory) {
+      final ICardFactory<AbstractCard> cardFactory) {
     assertTrue(zoneGetter.get().isEmpty());
     for (int i = 0; i < 5; i++) {
       cardAdder.accept(cardFactory.make());
@@ -110,10 +109,5 @@ class PlayerMatTest {
     // Using this notation we can pass method references to the test and reduce code
     // duplication.
     testCardZone(testMat::getMagicZone, testMat::addMagicCard, MagicCard::new);
-  }
-
-  private interface CardFactory<T extends AbstractCard> {
-
-    T make();
   }
 }
