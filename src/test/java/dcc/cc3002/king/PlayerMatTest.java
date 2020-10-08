@@ -101,8 +101,8 @@ class PlayerMatTest {
   /**
    * Checks that magic cards are added correctly to the mat.
    *
-   * @see PlayerMat#getMonsterZone()
-   * @see PlayerMat#addMonsterCard(AbstractCard)
+   * @see PlayerMat#getMagicZone()
+   * @see PlayerMat#addMagicCard(AbstractCard)
    */
   @Test
   void magicZoneTest() {

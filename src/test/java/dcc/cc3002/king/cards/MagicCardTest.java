@@ -5,10 +5,9 @@ import org.junit.jupiter.api.Test;
 
 class MagicCardTest extends AbstractCardTest {
 
-  @Override
   @BeforeEach
   void setUp() {
-    super.setUp();
+    super.initMat();
     testCard = new MagicCard();
   }
 
@@ -23,5 +22,4 @@ class MagicCardTest extends AbstractCardTest {
   void playCardTest() {
     checkPlayedCard(testMat::getMagicZone, testMat::getMonsterZone);
   }
-
 }
