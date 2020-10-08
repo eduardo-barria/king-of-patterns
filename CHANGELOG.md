@@ -2,6 +2,7 @@
 
 ## Version 1.0
 
+- ``1.0-B.207`` Cards: Implemented ``MagicCardTest``
 - ``1.0-B.206`` Cards: Adapted mat's test to use the new card classes
 - ``1.0-B.205`` Cards: Implemented ``playCard`` mechanic (breaks Single Responsibility
     Principle)
