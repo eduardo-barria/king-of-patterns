@@ -5,10 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import dcc.cc3002.king.ICardFactory;
 import dcc.cc3002.king.PlayerMat;
+import dcc.cc3002.king.cards.utils.ICardFactory;
 import java.util.List;
+import java.util.Random;
 import java.util.function.Supplier;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -18,20 +20,23 @@ import org.junit.jupiter.api.Test;
  */
 abstract class AbstractCardTest {
 
-  protected AbstractCard testCard;
+  protected ICard testCard;
   protected PlayerMat testMat;
-
+  protected long rngSeed;
+  protected Random rng;
   /**
-   * Creates the game mat.
+   * Creates the game mat and the basic elements to create cards.
    */
-  protected void initMat() {
+  protected void init() {
+    rngSeed = new Random().nextLong();
+    rng = new Random(rngSeed);
     testMat = new PlayerMat();
   }
 
   /**
    * Checks the basic functionalities of a card, like comparison and hashing.
    */
-  @Test
+  @RepeatedTest(20)
   abstract void basicTest();
 
   /**
@@ -48,8 +53,8 @@ abstract class AbstractCardTest {
    * @param unexpectedZoneGetter
    *     a reference to the getter of the zone where the card shouldn't be added.
    */
-  protected void checkPlayedCard(final Supplier<List<AbstractCard>> expectedZoneGetter,
-      final Supplier<List<AbstractCard>> unexpectedZoneGetter) {
+  protected void checkPlayedCard(final Supplier<List<ICard>> expectedZoneGetter,
+      final Supplier<List<ICard>> unexpectedZoneGetter) {
     // Initial check; neither zone should have cards
     assertFalse(unexpectedZoneGetter.get().contains(testCard));
     assertFalse(expectedZoneGetter.get().contains(testCard));
@@ -67,8 +72,8 @@ abstract class AbstractCardTest {
    * @param unexpectedCardConstructor
    *     a reference to the constructor of another type of card.
    */
-  protected void checkCardConstruction(ICardFactory<AbstractCard> expectedCardConstructor,
-      ICardFactory<AbstractCard> unexpectedCardConstructor) {
+  protected void checkCardConstruction(ICardFactory expectedCardConstructor,
+      ICardFactory unexpectedCardConstructor) {
     var expectedCard = expectedCardConstructor.make();
     var sameCard = testCard;
     assertEquals(sameCard, testCard);
@@ -76,5 +81,9 @@ abstract class AbstractCardTest {
     assertEquals(expectedCard.hashCode(), testCard.hashCode());
     assertNotEquals(testCard, unexpectedCardConstructor.make());
     assertNotEquals(testCard.hashCode(), unexpectedCardConstructor.hashCode());
+  }
+
+  protected ICard makeMagicCard() {
+    return new MagicCard();
   }
 }

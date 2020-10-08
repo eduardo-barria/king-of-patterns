@@ -1,8 +1,27 @@
 package dcc.cc3002.king.cards;
 
-public class MagicCard extends AbstractCard {
+import dcc.cc3002.king.PlayerMat;
+import java.util.Objects;
 
-  public MagicCard() {
-    super(CardType.MAGIC);
+/**
+ * Class that represents a magic card in the game.
+ *
+ * @author Ignacio Slater Muñoz
+ */
+public class MagicCard implements ICard {
+
+  @Override
+  public void playTo(final PlayerMat playerMat) {
+    playerMat.addMagicCard(this);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(MagicCard.class);
+  }
+
+  @Override
+  public boolean equals(final Object obj) {
+    return obj instanceof MagicCard;
   }
 }

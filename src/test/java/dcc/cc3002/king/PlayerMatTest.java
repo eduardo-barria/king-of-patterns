@@ -4,9 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import dcc.cc3002.king.cards.AbstractCard;
-import dcc.cc3002.king.cards.MagicCard;
-import dcc.cc3002.king.cards.MonsterCard;
+import dcc.cc3002.king.cards.*;
+import dcc.cc3002.king.cards.utils.ICardFactory;
+import dcc.cc3002.king.cards.utils.MonsterCardFactory;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -51,7 +51,7 @@ class PlayerMatTest {
     assertNotEquals(testMat, new PlayerMat());
     assertNotEquals(testMat.hashCode(), new PlayerMat().hashCode());
     testMat = new PlayerMat();
-    testMat.addMonsterCard(new MonsterCard());
+    testMat.addMonsterCard(new MonsterCard(1000, 1000));
     assertNotEquals(testMat, new PlayerMat());
     assertNotEquals(testMat.hashCode(), new PlayerMat().hashCode());
     testMat.addMagicCard(new MagicCard());
@@ -61,13 +61,14 @@ class PlayerMatTest {
    * Checks that monster cards are added correctly to the mat.
    *
    * @see PlayerMat#getMonsterZone()
-   * @see PlayerMat#addMonsterCard(AbstractCard)
+   * @see PlayerMat#addMonsterCard(ICard)
    */
   @Test
   void monsterZoneTest() {
     // Using this notation we can pass method references to the test and reduce code
     // duplication.
-    testCardZone(testMat::getMonsterZone, testMat::addMonsterCard, MonsterCard::new);
+    testCardZone(testMat::getMonsterZone, testMat::addMonsterCard,
+        new MonsterCardFactory(1000, 1000));
   }
 
   /**
@@ -86,9 +87,9 @@ class PlayerMatTest {
    *     In this context a factory is a functional interface that creates elements of type
    *     {@code AbstractCard}.
    */
-  private void testCardZone(final Supplier<List<AbstractCard>> zoneGetter,
-      final Consumer<AbstractCard> cardAdder,
-      final ICardFactory<AbstractCard> cardFactory) {
+  private void testCardZone(final Supplier<List<ICard>> zoneGetter,
+      final Consumer<ICard> cardAdder,
+      final ICardFactory cardFactory) {
     assertTrue(zoneGetter.get().isEmpty());
     for (int i = 0; i < 5; i++) {
       cardAdder.accept(cardFactory.make());
@@ -102,7 +103,7 @@ class PlayerMatTest {
    * Checks that magic cards are added correctly to the mat.
    *
    * @see PlayerMat#getMagicZone()
-   * @see PlayerMat#addMagicCard(AbstractCard)
+   * @see PlayerMat#addMagicCard(ICard)
    */
   @Test
   void magicZoneTest() {

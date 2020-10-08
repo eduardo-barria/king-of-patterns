@@ -1,6 +1,9 @@
 package dcc.cc3002.king.cards;
 
+import dcc.cc3002.king.cards.utils.ICardFactory;
+import dcc.cc3002.king.cards.utils.MonsterCardFactory;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -15,14 +18,15 @@ class MagicCardTest extends AbstractCardTest {
    */
   @BeforeEach
   void setUp() {
-    super.initMat();
+    super.init();
     testCard = new MagicCard();
   }
 
   @Override
-  @Test
+  @RepeatedTest(20)
   void basicTest() {
-    checkCardConstruction(MagicCard::new, MonsterCard::new);
+    ICardFactory monsterFactory = new MonsterCardFactory(rng.nextInt(8000), rng.nextInt(8000));
+    checkCardConstruction(this::makeMagicCard, monsterFactory);
   }
 
   @Override

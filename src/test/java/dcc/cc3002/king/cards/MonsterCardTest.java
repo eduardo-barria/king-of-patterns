@@ -1,6 +1,11 @@
 package dcc.cc3002.king.cards;
 
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+import dcc.cc3002.king.cards.utils.MonsterCardFactory;
+import java.util.Random;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -15,14 +20,31 @@ class MonsterCardTest extends AbstractCardTest {
    */
   @BeforeEach
   void setUp() {
-    super.initMat();
-    testCard = new MonsterCard();
+    super.init();
+    var random = new Random(rngSeed);
+    testCard = new MonsterCard(random.nextInt(8000), random.nextInt(8000));
   }
 
   @Override
-  @Test
+  @RepeatedTest(20)
   void basicTest() {
-    checkCardConstruction(MonsterCard::new, MagicCard::new);
+    int expectedAttack = rng.nextInt(8000);
+    int expectedDefense = rng.nextInt(8000);
+    checkCardConstruction(new MonsterCardFactory(expectedAttack, expectedDefense),
+        MagicCard::new);
+
+    // Check that monster cards with different attacks and defenses are not equals
+    int unexpectedAttack;
+    do {
+      unexpectedAttack = rng.nextInt(8000);
+    } while (unexpectedAttack == expectedAttack);
+    assertNotEquals(testCard, new MonsterCard(unexpectedAttack, expectedDefense));
+
+    int unexpectedDefense;
+    do {
+      unexpectedDefense = rng.nextInt(8000);
+    } while (unexpectedDefense == expectedDefense);
+    assertNotEquals(testCard, new MonsterCard(expectedAttack, unexpectedDefense));
   }
 
   @Override

@@ -2,6 +2,10 @@
 
 ## Version 1.0
 
+- ``1.0-B.211`` Cards: Added attack and defense to monster cards.
+- ``1.0-B.210`` Cards: Improved design.
+    - Removed unnecessary elements.
+    - Changed abstract card to interface.          
 - ``1.0-B.209`` Cards: Implemented ``MonsterCardTest``
 - ``1.0-B.208`` Cards: Refactored common code to abstract test class
 - ``1.0-B.207`` Cards: Implemented ``MagicCardTest``
