@@ -1,6 +1,7 @@
 package dcc.cc3002.king;
 
 import dcc.cc3002.king.cards.ICard;
+import dcc.cc3002.king.cards.MagicCard;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -62,5 +63,9 @@ public class PlayerMat {
 
   public List<ICard> getMagicZone() {
     return List.copyOf(magicZone);
+  }
+
+  public void removeMagicCard(final MagicCard magicCard) {
+
   }
 }

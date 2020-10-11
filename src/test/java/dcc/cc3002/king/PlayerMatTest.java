@@ -4,8 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import dcc.cc3002.king.cards.*;
+import dcc.cc3002.king.cards.CardPosition;
+import dcc.cc3002.king.cards.ICard;
+import dcc.cc3002.king.cards.MagicCard;
+import dcc.cc3002.king.cards.MonsterCard;
 import dcc.cc3002.king.cards.utils.ICardFactory;
+import dcc.cc3002.king.cards.utils.MagicCardFactory;
 import dcc.cc3002.king.cards.utils.MonsterCardFactory;
 import java.util.List;
 import java.util.function.Consumer;
@@ -47,14 +51,14 @@ class PlayerMatTest {
     assertEquals(expectedMat, testMat);
     assertEquals(expectedMat.hashCode(), testMat.hashCode());
     // This lines will assure the branch coverage
-    testMat.addMagicCard(new MagicCard());
+    testMat.addMagicCard(new MagicCard("Test card"));
     assertNotEquals(testMat, new PlayerMat());
     assertNotEquals(testMat.hashCode(), new PlayerMat().hashCode());
     testMat = new PlayerMat();
     testMat.addMonsterCard(new MonsterCard(1000, 1000, CardPosition.ATTACK));
     assertNotEquals(testMat, new PlayerMat());
     assertNotEquals(testMat.hashCode(), new PlayerMat().hashCode());
-    testMat.addMagicCard(new MagicCard());
+    testMat.addMagicCard(new MagicCard("Test card"));
   }
 
   /**
@@ -107,8 +111,23 @@ class PlayerMatTest {
    */
   @Test
   void magicZoneTest() {
+    ICardFactory magicFactory = new MagicCardFactory("Test card");
     // Using this notation we can pass method references to the test and reduce code
     // duplication.
-    testCardZone(testMat::getMagicZone, testMat::addMagicCard, MagicCard::new);
+    testCardZone(testMat::getMagicZone, testMat::addMagicCard, magicFactory);
+  }
+
+  @Test
+  void removeMagicCardTest() {
+    assertTrue(testMat.getMagicZone().isEmpty());
+    var magicCard = new MagicCard("Test card");
+    testMat.removeMagicCard(magicCard);
+    assertTrue(testMat.getMagicZone().isEmpty());
+    testMat.addMagicCard(magicCard);
+    assertEquals(1, testMat.getMagicZone().size());
+    testMat.removeMagicCard(new MagicCard("Wrong card"));
+    assertEquals(1, testMat.getMagicZone().size());
+    testMat.removeMagicCard(new MagicCard("Test card"));
+    assertTrue(testMat.getMagicZone().isEmpty());
   }
 }

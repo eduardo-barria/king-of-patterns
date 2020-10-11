@@ -3,6 +3,8 @@ package dcc.cc3002.king.cards;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import dcc.cc3002.king.cards.utils.ICardFactory;
+import dcc.cc3002.king.cards.utils.MagicCardFactory;
 import dcc.cc3002.king.cards.utils.MonsterCardFactory;
 import java.util.Random;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,8 +34,9 @@ class MonsterCardTest extends AbstractCardTest {
   void basicTest() {
     int expectedAttack = rng.nextInt(8000);
     int expectedDefense = rng.nextInt(8000);
+    ICardFactory magicFactory = new MagicCardFactory("Test card");
     checkCardConstruction(new MonsterCardFactory(expectedAttack, expectedDefense),
-        MagicCard::new);
+        magicFactory);
 
     // Check that monster cards with different attacks and defenses are not equals
     int unexpectedAttack;

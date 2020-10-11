@@ -84,6 +84,6 @@ abstract class AbstractCardTest {
   }
 
   protected ICard makeMagicCard() {
-    return new MagicCard();
+    return new MagicCard("Test magic card");
   }
 }

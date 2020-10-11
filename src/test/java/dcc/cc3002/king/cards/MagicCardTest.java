@@ -19,13 +19,14 @@ class MagicCardTest extends AbstractCardTest {
   @BeforeEach
   void setUp() {
     super.init();
-    testCard = new MagicCard();
+    testCard = new MagicCard("Test magic card");
   }
 
   @Override
   @RepeatedTest(20)
   void basicTest() {
-    ICardFactory monsterFactory = new MonsterCardFactory(rng.nextInt(8000), rng.nextInt(8000));
+    ICardFactory monsterFactory = new MonsterCardFactory(rng.nextInt(8000),
+        rng.nextInt(8000));
     checkCardConstruction(this::makeMagicCard, monsterFactory);
   }
 

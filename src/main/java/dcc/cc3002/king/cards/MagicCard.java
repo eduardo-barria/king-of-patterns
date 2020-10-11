@@ -10,6 +10,10 @@ import java.util.Objects;
  */
 public class MagicCard implements ICard {
 
+  public MagicCard(final String name) {
+
+  }
+
   @Override
   public void playTo(final PlayerMat playerMat) {
     playerMat.addMagicCard(this);
