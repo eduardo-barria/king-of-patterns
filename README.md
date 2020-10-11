@@ -2,7 +2,12 @@
 
 Examples of using several design patterns to emulate a TCG inspired by Yu-Gi-Oh!
 
-## Exercise 1
+For each exercise there's a proposed solution on it's own branch.
+You can look the branch commit history to see a "step-by-step" solution.
+
+## Testing
+
+### Exercise 1
 
 Each player has a mat to play cards.
 Using a _Test Driven Development_ approach:
