@@ -7,8 +7,10 @@ public class MonsterCard implements ICard {
 
   private final int attackPoints;
   private final int defensePoints;
+  private CardPosition position;
 
-  public MonsterCard(final int attackPoints, final int defensePoints) {
+  public MonsterCard(final int attackPoints, final int defensePoints,
+      final CardPosition attack) {
     this.attackPoints = attackPoints;
     this.defensePoints = defensePoints;
   }
@@ -42,5 +44,13 @@ public class MonsterCard implements ICard {
 
   public int getDefensePoints() {
     return defensePoints;
+  }
+
+  public CardPosition getPosition() {
+    return position;
+  }
+
+  public void setPosition(final CardPosition position) {
+    this.position = position;
   }
 }

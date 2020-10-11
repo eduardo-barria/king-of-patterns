@@ -51,7 +51,7 @@ class PlayerMatTest {
     assertNotEquals(testMat, new PlayerMat());
     assertNotEquals(testMat.hashCode(), new PlayerMat().hashCode());
     testMat = new PlayerMat();
-    testMat.addMonsterCard(new MonsterCard(1000, 1000));
+    testMat.addMonsterCard(new MonsterCard(1000, 1000, CardPosition.ATTACK));
     assertNotEquals(testMat, new PlayerMat());
     assertNotEquals(testMat.hashCode(), new PlayerMat().hashCode());
     testMat.addMagicCard(new MagicCard());
