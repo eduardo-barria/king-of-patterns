@@ -10,8 +10,10 @@ import java.util.Objects;
  */
 public class MagicCard implements ICard {
 
-  public MagicCard(final String name) {
+  private final String name;
 
+  public MagicCard(final String name) {
+    this.name = name;
   }
 
   @Override
@@ -21,11 +23,18 @@ public class MagicCard implements ICard {
 
   @Override
   public int hashCode() {
-    return Objects.hash(MagicCard.class);
+    return Objects.hash(name, MagicCard.class);
   }
 
   @Override
-  public boolean equals(final Object obj) {
-    return obj instanceof MagicCard;
+  public boolean equals(final Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof MagicCard)) {
+      return false;
+    }
+    final MagicCard magicCard = (MagicCard) o;
+    return name.equals(magicCard.name);
   }
 }

@@ -2,6 +2,7 @@
 
 ## Version 1.0
 
+- ``1.0-B.111`` Mat: Implemented card removal.
 - ``1.0-B.110`` Mat: Failing tests for removing a magic card. 
 - ``1.0-B.213`` Cards: Implemented monster card's positions.
 - ``1.0-B.212`` Cards: Added failing tests for monster card position.

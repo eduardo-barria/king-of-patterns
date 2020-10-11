@@ -66,6 +66,6 @@ public class PlayerMat {
   }
 
   public void removeMagicCard(final MagicCard magicCard) {
-
+    magicZone.remove(magicCard);
   }
 }
