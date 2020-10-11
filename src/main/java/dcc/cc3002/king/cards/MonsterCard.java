@@ -10,9 +10,10 @@ public class MonsterCard implements ICard {
   private CardPosition position;
 
   public MonsterCard(final int attackPoints, final int defensePoints,
-      final CardPosition attack) {
+      final CardPosition cardPosition) {
     this.attackPoints = attackPoints;
     this.defensePoints = defensePoints;
+    this.position = cardPosition;
   }
 
   @Override

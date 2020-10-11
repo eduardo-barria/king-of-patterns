@@ -2,6 +2,7 @@
 
 ## Version 1.0
 
+- ``1.0-B.213`` Cards: Implemented monster card's positions.
 - ``1.0-B.212`` Cards: Added failing tests for monster card position.
 - ``1.0-B.211`` Cards: Added attack and defense to monster cards.
 - ``1.0-B.210`` Cards: Improved design.
