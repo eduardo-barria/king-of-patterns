@@ -8,6 +8,7 @@ public class MonsterCard implements ICard {
   private final int attackPoints;
   private final int defensePoints;
   private CardPosition position;
+  private PlayerMat mat;
 
   public MonsterCard(final int attackPoints, final int defensePoints,
       final CardPosition cardPosition) {
@@ -19,8 +20,20 @@ public class MonsterCard implements ICard {
   @Override
   public void playTo(final PlayerMat playerMat) {
     playerMat.addMonsterCard(this);
+    this.mat = playerMat;
   }
 
+  public void attack(final MonsterCard opponent) {
+    if (this.attackPoints > opponent.attackPoints) {
+      opponent.removeFromMat();
+    }
+  }
+
+  private void removeFromMat() {
+    mat.removeMonsterCard(this);
+  }
+
+  // region : Utility
   @Override
   public int hashCode() {
     return Objects.hash(getAttackPoints(), getDefensePoints());
@@ -38,7 +51,9 @@ public class MonsterCard implements ICard {
     return getAttackPoints() == that.getAttackPoints() &&
         getDefensePoints() == that.getDefensePoints();
   }
+  // endregion
 
+  // region : Field accessors
   public int getAttackPoints() {
     return attackPoints;
   }
@@ -54,8 +69,5 @@ public class MonsterCard implements ICard {
   public void setPosition(final CardPosition position) {
     this.position = position;
   }
-
-  public void attack(final MonsterCard opponent) {
-
-  }
+  // endregion
 }

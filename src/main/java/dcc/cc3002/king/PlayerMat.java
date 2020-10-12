@@ -2,6 +2,7 @@ package dcc.cc3002.king;
 
 import dcc.cc3002.king.cards.ICard;
 import dcc.cc3002.king.cards.MagicCard;
+import dcc.cc3002.king.cards.MonsterCard;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -19,8 +20,15 @@ public class PlayerMat {
   /**
    * Adds a card to the monster zone.
    */
-  public void addMonsterCard(ICard card) {
+  public void addMonsterCard(MonsterCard card) {
     addCardTo(monsterZone, card);
+  }
+
+  /**
+   * Adds a card to the magic zone.
+   */
+  public void addMagicCard(final MagicCard card) {
+    addCardTo(magicZone, card);
   }
 
   /**
@@ -30,13 +38,6 @@ public class PlayerMat {
     if (zone.size() < 5) {
       zone.add(card);
     }
-  }
-
-  /**
-   * Adds a card to the magic zone.
-   */
-  public void addMagicCard(final ICard card) {
-    addCardTo(magicZone, card);
   }
 
   @Override
@@ -67,5 +68,9 @@ public class PlayerMat {
 
   public void removeMagicCard(final MagicCard magicCard) {
     magicZone.remove(magicCard);
+  }
+
+  public void removeMonsterCard(final MonsterCard monsterCard) {
+    monsterZone.remove(monsterCard);
   }
 }

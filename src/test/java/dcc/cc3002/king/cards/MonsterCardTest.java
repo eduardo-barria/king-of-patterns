@@ -77,8 +77,8 @@ class MonsterCardTest extends AbstractCardTest {
     var defenderMat = new PlayerMat();
     var defender = new MonsterCard(rng.nextInt(2000), 0, CardPosition.ATTACK);
     var attacker = new MonsterCard(rng.nextInt(2000) + 2000, 0, CardPosition.ATTACK);
-    attackerMat.addMonsterCard(attacker);
-    defenderMat.addMonsterCard(defender);
+    attacker.playTo(attackerMat);
+    defender.playTo(defenderMat);
     assertTrue(attackerMat.getMonsterZone().contains(attacker));
     assertTrue(defenderMat.getMonsterZone().contains(defender));
 
@@ -88,6 +88,9 @@ class MonsterCardTest extends AbstractCardTest {
 
     attacker = new MonsterCard(rng.nextInt(2000), 0, CardPosition.ATTACK);
     defender = new MonsterCard(rng.nextInt(2000) + 2000, 0, CardPosition.ATTACK);
+    attacker.playTo(attackerMat);
+    defender.playTo(defenderMat);
+
     attacker.attack(defender);
     assertTrue(attackerMat.getMonsterZone().contains(attacker));
     assertTrue(defenderMat.getMonsterZone().contains(defender));

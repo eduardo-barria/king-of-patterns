@@ -65,13 +65,13 @@ class PlayerMatTest {
    * Checks that monster cards are added correctly to the mat.
    *
    * @see PlayerMat#getMonsterZone()
-   * @see PlayerMat#addMonsterCard(ICard)
+   * @see PlayerMat#addMonsterCard(MonsterCard)
    */
   @Test
   void monsterZoneTest() {
     // Using this notation we can pass method references to the test and reduce code
     // duplication.
-    testCardZone(testMat::getMonsterZone, testMat::addMonsterCard,
+    testCardZone(testMat::getMonsterZone, this::addMonsterCard,
         new MonsterCardFactory(1000, 1000));
   }
 
@@ -103,31 +103,60 @@ class PlayerMatTest {
     assertEquals(5, zoneGetter.get().size());
   }
 
+  private void addMonsterCard(ICard card) {
+    testMat.addMonsterCard((MonsterCard) card);
+  }
+
   /**
    * Checks that magic cards are added correctly to the mat.
    *
    * @see PlayerMat#getMagicZone()
-   * @see PlayerMat#addMagicCard(ICard)
+   * @see PlayerMat#addMagicCard(MagicCard)
    */
   @Test
   void magicZoneTest() {
     ICardFactory magicFactory = new MagicCardFactory("Test card");
     // Using this notation we can pass method references to the test and reduce code
     // duplication.
-    testCardZone(testMat::getMagicZone, testMat::addMagicCard, magicFactory);
+    testCardZone(testMat::getMagicZone, this::addMagicCard, magicFactory);
+  }
+
+  private void addMagicCard(ICard card) {
+    testMat.addMagicCard((MagicCard) card);
   }
 
   @Test
   void removeMagicCardTest() {
-    assertTrue(testMat.getMagicZone().isEmpty());
-    var magicCard = new MagicCard("Test card");
-    testMat.removeMagicCard(magicCard);
-    assertTrue(testMat.getMagicZone().isEmpty());
-    testMat.addMagicCard(magicCard);
-    assertEquals(1, testMat.getMagicZone().size());
-    testMat.removeMagicCard(new MagicCard("Wrong card"));
-    assertEquals(1, testMat.getMagicZone().size());
-    testMat.removeMagicCard(new MagicCard("Test card"));
-    assertTrue(testMat.getMagicZone().isEmpty());
+    checkCardRemoval(new MagicCard("Test card"), new MagicCard("Wrong card"),
+        testMat::getMagicZone, this::removeMagicCard, this::addMagicCard);
+  }
+
+  private void checkCardRemoval(ICard expectedCard, ICard unexpectedCard,
+      Supplier<List<ICard>> zoneGetter, Consumer<ICard> cardRemover,
+      Consumer<ICard> cardAdder) {
+    assertTrue(zoneGetter.get().isEmpty());
+    cardRemover.accept(expectedCard);
+    assertTrue(zoneGetter.get().isEmpty());
+    cardAdder.accept(expectedCard);
+    assertEquals(1, zoneGetter.get().size());
+    cardRemover.accept(unexpectedCard);
+    assertEquals(1, zoneGetter.get().size());
+    cardRemover.accept(expectedCard);
+    assertTrue(zoneGetter.get().isEmpty());
+  }
+
+  private void removeMagicCard(final ICard magicCard) {
+    testMat.removeMagicCard((MagicCard) magicCard);
+  }
+
+  @Test
+  void removeMonsterCardTest() {
+    checkCardRemoval(new MonsterCard(1000, 1000, CardPosition.ATTACK),
+        new MonsterCard(0, 0, CardPosition.DEFENSE),
+        testMat::getMonsterZone, this::removeMonsterCard, this::addMonsterCard);
+  }
+
+  private void removeMonsterCard(final ICard monsterCard) {
+    testMat.removeMonsterCard((MonsterCard) monsterCard);
   }
 }
