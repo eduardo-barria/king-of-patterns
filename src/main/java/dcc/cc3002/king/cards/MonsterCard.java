@@ -54,4 +54,8 @@ public class MonsterCard implements ICard {
   public void setPosition(final CardPosition position) {
     this.position = position;
   }
+
+  public void attack(final MonsterCard opponent) {
+
+  }
 }

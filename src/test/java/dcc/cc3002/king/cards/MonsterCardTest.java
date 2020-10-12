@@ -1,8 +1,11 @@
 package dcc.cc3002.king.cards;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import dcc.cc3002.king.PlayerMat;
 import dcc.cc3002.king.cards.utils.ICardFactory;
 import dcc.cc3002.king.cards.utils.MagicCardFactory;
 import dcc.cc3002.king.cards.utils.MonsterCardFactory;
@@ -66,5 +69,27 @@ class MonsterCardTest extends AbstractCardTest {
     assertEquals(CardPosition.ATTACK, testMonsterCard.getPosition());
     testMonsterCard.setPosition(CardPosition.DEFENSE);
     assertEquals(CardPosition.DEFENSE, testMonsterCard.getPosition());
+  }
+
+  @RepeatedTest(16)
+  void attackToAttackModeCardTest() {
+    var attackerMat = new PlayerMat();
+    var defenderMat = new PlayerMat();
+    var defender = new MonsterCard(rng.nextInt(2000), 0, CardPosition.ATTACK);
+    var attacker = new MonsterCard(rng.nextInt(2000) + 2000, 0, CardPosition.ATTACK);
+    attackerMat.addMonsterCard(attacker);
+    defenderMat.addMonsterCard(defender);
+    assertTrue(attackerMat.getMonsterZone().contains(attacker));
+    assertTrue(defenderMat.getMonsterZone().contains(defender));
+
+    attacker.attack(defender);
+    assertTrue(attackerMat.getMonsterZone().contains(attacker));
+    assertFalse(defenderMat.getMonsterZone().contains(defender));
+
+    attacker = new MonsterCard(rng.nextInt(2000), 0, CardPosition.ATTACK);
+    defender = new MonsterCard(rng.nextInt(2000) + 2000, 0, CardPosition.ATTACK);
+    attacker.attack(defender);
+    assertTrue(attackerMat.getMonsterZone().contains(attacker));
+    assertTrue(defenderMat.getMonsterZone().contains(defender));
   }
 }
