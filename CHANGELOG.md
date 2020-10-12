@@ -2,6 +2,7 @@
 
 ## Version 1.0
 
+- ``1.0-B.217`` Monster card attack to defense position monster implementation
 - ``1.0-B.216`` Monster card attack to defense position monster failing tests
 - ``1.0-B.215`` Monster card attack to attack position monster implementation
 - ``1.0-B.214`` Monster card attack to attack position monster failing tests

@@ -24,7 +24,8 @@ public class MonsterCard implements ICard {
   }
 
   public void attack(final MonsterCard opponent) {
-    if (this.attackPoints > opponent.attackPoints) {
+    if (this.attackPoints > (opponent.position == CardPosition.ATTACK
+        ? opponent.attackPoints : opponent.defensePoints)) {
       opponent.removeFromMat();
     }
   }
