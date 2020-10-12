@@ -73,10 +73,29 @@ class MonsterCardTest extends AbstractCardTest {
 
   @RepeatedTest(16)
   void attackToAttackModeCardTest() {
+    checkAttack(CardPosition.ATTACK);
+  }
+
+  @RepeatedTest(16)
+  void attackToDefenseModeCardTest() {
+    checkAttack(CardPosition.DEFENSE);
+  }
+
+  void checkAttack(final CardPosition defenderPosition) {
     var attackerMat = new PlayerMat();
     var defenderMat = new PlayerMat();
-    var defender = new MonsterCard(rng.nextInt(2000), 0, CardPosition.ATTACK);
-    var attacker = new MonsterCard(rng.nextInt(2000) + 2000, 0, CardPosition.ATTACK);
+    MonsterCard defender, attacker;
+    if (defenderPosition == CardPosition.ATTACK) {
+      defender = new MonsterCard(rng.nextInt(2000), Integer.MAX_VALUE,
+          defenderPosition);
+      attacker = new MonsterCard(rng.nextInt(2000) + 2000, Integer.MAX_VALUE,
+          CardPosition.ATTACK);
+    } else {
+      defender = new MonsterCard(Integer.MAX_VALUE, rng.nextInt(2000),
+          defenderPosition);
+      attacker = new MonsterCard(Integer.MAX_VALUE, rng.nextInt(2000) + 2000,
+          CardPosition.ATTACK);
+    }
     attacker.playTo(attackerMat);
     defender.playTo(defenderMat);
     assertTrue(attackerMat.getMonsterZone().contains(attacker));
@@ -86,8 +105,17 @@ class MonsterCardTest extends AbstractCardTest {
     assertTrue(attackerMat.getMonsterZone().contains(attacker));
     assertFalse(defenderMat.getMonsterZone().contains(defender));
 
-    attacker = new MonsterCard(rng.nextInt(2000), 0, CardPosition.ATTACK);
-    defender = new MonsterCard(rng.nextInt(2000) + 2000, 0, CardPosition.ATTACK);
+    if (defenderPosition == CardPosition.ATTACK) {
+      attacker = new MonsterCard(rng.nextInt(2000), Integer.MAX_VALUE,
+          defenderPosition);
+      defender = new MonsterCard(rng.nextInt(2000) + 2000, Integer.MAX_VALUE,
+          CardPosition.ATTACK);
+    } else {
+      attacker = new MonsterCard(Integer.MAX_VALUE, rng.nextInt(2000),
+          defenderPosition);
+      defender = new MonsterCard(Integer.MAX_VALUE, rng.nextInt(2000) + 2000,
+          CardPosition.ATTACK);
+    }
     attacker.playTo(attackerMat);
     defender.playTo(defenderMat);
 
