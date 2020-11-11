@@ -2,6 +2,7 @@
 
 ## Version 1.0
 
+- ``1.0.3.2``   Deck and hand creation
 - ``1.0.3.1``   Basic player creation
 - ``1.0-B.217`` Monster card attack to defense position monster implementation
 - ``1.0-B.216`` Monster card attack to defense position monster failing tests
