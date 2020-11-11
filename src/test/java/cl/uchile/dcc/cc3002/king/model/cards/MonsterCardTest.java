@@ -1,14 +1,15 @@
-package dcc.cc3002.king.cards;
+package cl.uchile.dcc.cc3002.king.model.cards;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import dcc.cc3002.king.PlayerMat;
-import dcc.cc3002.king.cards.utils.ICardFactory;
-import dcc.cc3002.king.cards.utils.MagicCardFactory;
-import dcc.cc3002.king.cards.utils.MonsterCardFactory;
+import cl.uchile.dcc.cc3002.king.model.PlayerMat;
+import cl.uchile.dcc.cc3002.king.model.cards.utils.MagicCardFactory;
+import cl.uchile.dcc.cc3002.king.model.cards.utils.MonsterCardFactory;
+import cl.uchile.dcc.cc3002.king.model.cards.utils.ICardFactory;
+
 import java.util.Random;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;

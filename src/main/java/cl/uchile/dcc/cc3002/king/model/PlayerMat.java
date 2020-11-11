@@ -1,8 +1,8 @@
-package dcc.cc3002.king;
+package cl.uchile.dcc.cc3002.king.model;
 
-import dcc.cc3002.king.cards.ICard;
-import dcc.cc3002.king.cards.MagicCard;
-import dcc.cc3002.king.cards.MonsterCard;
+import cl.uchile.dcc.cc3002.king.model.cards.ICard;
+import cl.uchile.dcc.cc3002.king.model.cards.MagicCard;
+import cl.uchile.dcc.cc3002.king.model.cards.MonsterCard;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

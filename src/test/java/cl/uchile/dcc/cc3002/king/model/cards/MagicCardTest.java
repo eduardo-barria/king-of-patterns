@@ -1,7 +1,7 @@
-package dcc.cc3002.king.cards;
+package cl.uchile.dcc.cc3002.king.model.cards;
 
-import dcc.cc3002.king.cards.utils.ICardFactory;
-import dcc.cc3002.king.cards.utils.MonsterCardFactory;
+import cl.uchile.dcc.cc3002.king.model.cards.utils.ICardFactory;
+import cl.uchile.dcc.cc3002.king.model.cards.utils.MonsterCardFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;

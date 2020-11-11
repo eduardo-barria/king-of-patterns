@@ -1,6 +1,6 @@
-package cl.uchile.dcc.cc3002.king.cards;
+package cl.uchile.dcc.cc3002.king.model.cards;
 
-import cl.uchile.dcc.cc3002.king.PlayerMat;
+import cl.uchile.dcc.cc3002.king.model.PlayerMat;
 
 import java.util.Objects;
 

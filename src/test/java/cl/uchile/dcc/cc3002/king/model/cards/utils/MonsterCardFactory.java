@@ -1,7 +1,7 @@
-package cl.uchile.dcc.cc3002.king.cards.utils;
+package cl.uchile.dcc.cc3002.king.model.cards.utils;
 
-import cl.uchile.dcc.cc3002.king.cards.CardPosition;
-import cl.uchile.dcc.cc3002.king.cards.MonsterCard;
+import cl.uchile.dcc.cc3002.king.model.cards.CardPosition;
+import cl.uchile.dcc.cc3002.king.model.cards.MonsterCard;
 
 public class MonsterCardFactory implements ICardFactory {
 

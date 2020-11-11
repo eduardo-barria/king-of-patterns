@@ -1,16 +1,16 @@
-package cl.uchile.dcc.cc3002.king;
+package cl.uchile.dcc.cc3002.king.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import cl.uchile.dcc.cc3002.king.cards.CardPosition;
-import cl.uchile.dcc.cc3002.king.cards.ICard;
-import cl.uchile.dcc.cc3002.king.cards.utils.MagicCardFactory;
-import cl.uchile.dcc.cc3002.king.cards.utils.MonsterCardFactory;
-import cl.uchile.dcc.cc3002.king.cards.MagicCard;
-import cl.uchile.dcc.cc3002.king.cards.MonsterCard;
-import cl.uchile.dcc.cc3002.king.cards.utils.ICardFactory;
+import cl.uchile.dcc.cc3002.king.model.cards.CardPosition;
+import cl.uchile.dcc.cc3002.king.model.cards.ICard;
+import cl.uchile.dcc.cc3002.king.model.cards.utils.MagicCardFactory;
+import cl.uchile.dcc.cc3002.king.model.cards.utils.MonsterCardFactory;
+import cl.uchile.dcc.cc3002.king.model.cards.MagicCard;
+import cl.uchile.dcc.cc3002.king.model.cards.MonsterCard;
+import cl.uchile.dcc.cc3002.king.model.cards.utils.ICardFactory;
 
 import java.util.List;
 import java.util.function.Consumer;

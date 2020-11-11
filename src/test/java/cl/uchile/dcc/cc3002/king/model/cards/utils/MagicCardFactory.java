@@ -1,6 +1,6 @@
-package cl.uchile.dcc.cc3002.king.cards.utils;
+package cl.uchile.dcc.cc3002.king.model.cards.utils;
 
-import cl.uchile.dcc.cc3002.king.cards.MagicCard;
+import cl.uchile.dcc.cc3002.king.model.cards.MagicCard;
 
 public class MagicCardFactory implements ICardFactory {
 
