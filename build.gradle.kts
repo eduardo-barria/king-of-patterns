@@ -21,6 +21,7 @@ repositories {
 
 dependencies {
   implementation(kotlin("stdlib"))
+  implementation(group = "org.jetbrains", name = "annotations", version = "19.0.0")
   // JUnit
   testImplementation(group = "org.junit.jupiter", name = "junit-jupiter-api", version = "5.7.0")
   testRuntimeOnly(group = "org.junit.jupiter", name = "junit-jupiter-engine", version = "5.7.0")
