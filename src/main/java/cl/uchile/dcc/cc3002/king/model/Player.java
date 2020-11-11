@@ -11,6 +11,7 @@ public class Player {
   private final Queue<ICard> deck;
   private final List<ICard> hand = new ArrayList<>();
   private final int lifePoints;
+  private final PlayerMat playerMat;
 
 
   public Player(final String name, final int lifePoints) {
@@ -20,6 +21,7 @@ public class Player {
     for (int i = 0; i < 40; i++) {
       deck.add(new MagicCard("Dummy"));
     }
+    this.playerMat = new PlayerMat();
   }
 
   @Override
