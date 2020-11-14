@@ -5,14 +5,14 @@ import cl.uchile.dcc.cc3002.king.model.cards.MagicCard;
 
 import java.util.*;
 
-public class Player {
+public class Player extends Observable {
 
   private final String name;
   private final Queue<ICard> deck;
   private final List<ICard> hand = new ArrayList<>();
   private final int lifePoints;
   private final PlayerMat playerMat;
-
+  private ICard selectedCard;
 
   public Player(final String name, final int lifePoints) {
     this.name = name;
@@ -22,6 +22,16 @@ public class Player {
       deck.add(new MagicCard("Dummy"));
     }
     this.playerMat = new PlayerMat();
+  }
+
+  public void selectCard(int index) {
+    selectedCard = hand.get(index);
+  }
+
+  public void playCard() {
+    selectedCard.playTo(playerMat);
+    setChanged();
+    notifyObservers(selectedCard);
   }
 
   @Override

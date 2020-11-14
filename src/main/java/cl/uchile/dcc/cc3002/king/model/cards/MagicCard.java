@@ -23,6 +23,11 @@ public class MagicCard implements ICard {
   }
 
   @Override
+  public String getName() {
+    return name;
+  }
+
+  @Override
   public int hashCode() {
     return Objects.hash(name, MagicCard.class);
   }

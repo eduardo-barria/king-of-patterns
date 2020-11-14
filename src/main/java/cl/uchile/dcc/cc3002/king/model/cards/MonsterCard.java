@@ -10,12 +10,18 @@ public class MonsterCard implements ICard {
   private final int defensePoints;
   private CardPosition position;
   private PlayerMat mat;
+  private final String name = "Placeholder";
 
   public MonsterCard(final int attackPoints, final int defensePoints,
-      final CardPosition cardPosition) {
+                     final CardPosition cardPosition) {
     this.attackPoints = attackPoints;
     this.defensePoints = defensePoints;
     this.position = cardPosition;
+  }
+
+  @Override
+  public String getName() {
+    return name;
   }
 
   @Override
@@ -26,7 +32,7 @@ public class MonsterCard implements ICard {
 
   public void attack(final MonsterCard opponent) {
     if (this.attackPoints > (opponent.position == CardPosition.ATTACK
-        ? opponent.attackPoints : opponent.defensePoints)) {
+                             ? opponent.attackPoints : opponent.defensePoints)) {
       opponent.removeFromMat();
     }
   }
