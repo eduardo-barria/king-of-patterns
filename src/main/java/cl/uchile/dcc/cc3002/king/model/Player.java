@@ -1,11 +1,15 @@
 package cl.uchile.dcc.cc3002.king.model;
 
+import cl.uchile.dcc.cc3002.king.controller.IEventHandler;
 import cl.uchile.dcc.cc3002.king.model.cards.ICard;
 import cl.uchile.dcc.cc3002.king.model.cards.MagicCard;
 
+import java.beans.PropertyChangeSupport;
 import java.util.*;
 
-public class Player extends Observable {
+public class Player {
+
+  private final PropertyChangeSupport cardPlayedEvent = new PropertyChangeSupport(this);
 
   private final String name;
   private final Queue<ICard> deck;
@@ -30,8 +34,7 @@ public class Player extends Observable {
 
   public void playCard() {
     selectedCard.playTo(playerMat);
-    setChanged();
-    notifyObservers(selectedCard);
+    cardPlayedEvent.firePropertyChange("Card played by " + name, null, selectedCard);
   }
 
   @Override
@@ -61,5 +64,9 @@ public class Player extends Observable {
 
   public int getHandSize() {
     return hand.size();
+  }
+
+  public void addListener(IEventHandler handler) {
+    cardPlayedEvent.addPropertyChangeListener(handler);
   }
 }

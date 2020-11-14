@@ -4,21 +4,20 @@ import cl.uchile.dcc.cc3002.king.model.Player;
 import cl.uchile.dcc.cc3002.king.model.cards.ICard;
 
 import java.util.LinkedList;
-import java.util.Observable;
-import java.util.Observer;
 
-public class GameController implements Observer {
+public class GameController {
   private final Player playerA;
   private final Player playerB;
   private final LinkedList<Player> players = new LinkedList<>();
+  private final IEventHandler cardPlayedHandler = new CardPlayedHandler(this);
 
   public GameController() {
     playerA = new Player("Player A", 8000);
     playerB = new Player("Player B", 8000);
     players.add(playerA);
     players.add(playerB);
-    playerA.addObserver(this);
-    playerB.addObserver(this);
+    playerA.addListener(cardPlayedHandler);
+    playerB.addListener(cardPlayedHandler);
   }
 
   public void endTurn() {
@@ -26,14 +25,7 @@ public class GameController implements Observer {
     players.add(tmp);
   }
 
-  @Override
-  public void update(Observable o, Object arg) {
-    if (arg instanceof ICard) {
-      onCardPlayed((ICard) arg);
-    }
-  }
-
-  private void onCardPlayed(ICard card) {
+  public void onCardPlayed(ICard card) {
     System.out.println(card.getName() + " was played.");
   }
 }
