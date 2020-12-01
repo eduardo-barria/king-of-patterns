@@ -1,6 +1,8 @@
 package cl.uchile.dcc.cc3002.king.model.cards;
 
+import cl.uchile.dcc.cc3002.king.model.Player;
 import cl.uchile.dcc.cc3002.king.model.PlayerMat;
+import cl.uchile.dcc.cc3002.king.model.effects.IEffect;
 
 import java.util.Objects;
 
@@ -9,12 +11,10 @@ import java.util.Objects;
  *
  * @author Ignacio Slater Muñoz
  */
-public class MagicCard implements ICard {
+public class MagicCard extends AbstractCard {
 
-  private final String name;
-
-  public MagicCard(final String name) {
-    this.name = name;
+  public MagicCard(final String name, final Player owner, final IEffect effect) {
+    super(name, owner, effect);
   }
 
   @Override

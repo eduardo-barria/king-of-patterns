@@ -4,7 +4,7 @@ import cl.uchile.dcc.cc3002.king.model.PlayerMat;
 
 import java.util.Objects;
 
-public class MonsterCard implements ICard {
+public class MonsterCard extends AbstractCard {
 
   private final int attackPoints;
   private final int defensePoints;
@@ -12,7 +12,7 @@ public class MonsterCard implements ICard {
   private PlayerMat mat;
 
   public MonsterCard(final int attackPoints, final int defensePoints,
-      final CardPosition cardPosition) {
+                     final CardPosition cardPosition) {
     this.attackPoints = attackPoints;
     this.defensePoints = defensePoints;
     this.position = cardPosition;
