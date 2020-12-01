@@ -9,7 +9,7 @@ import java.util.Objects;
  *
  * @author Ignacio Slater Muñoz
  */
-public class MagicCard implements ICard {
+public class MagicCard extends AbstractCard {
 
   private final String name;
 

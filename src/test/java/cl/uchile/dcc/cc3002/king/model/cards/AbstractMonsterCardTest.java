@@ -1,26 +1,24 @@
 package cl.uchile.dcc.cc3002.king.model.cards;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import cl.uchile.dcc.cc3002.king.model.PlayerMat;
+import cl.uchile.dcc.cc3002.king.model.cards.monster.AbstractMonsterCard;
+import cl.uchile.dcc.cc3002.king.model.cards.utils.ICardFactory;
 import cl.uchile.dcc.cc3002.king.model.cards.utils.MagicCardFactory;
 import cl.uchile.dcc.cc3002.king.model.cards.utils.MonsterCardFactory;
-import cl.uchile.dcc.cc3002.king.model.cards.utils.ICardFactory;
-
-import java.util.Random;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
+
+import java.util.Random;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test suite for the monster cards.
  *
  * @author Ignacio Slater M.
  */
-class MonsterCardTest extends AbstractCardTest {
+class AbstractMonsterCardTest extends AbstractCardTest {
 
   /**
    * Initializes the needed fields for the tests.
@@ -28,34 +26,34 @@ class MonsterCardTest extends AbstractCardTest {
   @BeforeEach
   void setUp() {
     super.init();
-    var random = new Random(rngSeed);
-    testCard = new MonsterCard(random.nextInt(8000), random.nextInt(8000),
-        CardPosition.ATTACK);
+    final var random = new Random(rngSeed);
+    testCard = new AbstractMonsterCard(random.nextInt(8000), random.nextInt(8000),
+                                       CardPosition.ATTACK);
   }
 
   @Override
   @RepeatedTest(20)
   void basicTest() {
-    int expectedAttack = rng.nextInt(8000);
-    int expectedDefense = rng.nextInt(8000);
-    ICardFactory magicFactory = new MagicCardFactory("Test card");
+    final int expectedAttack = rng.nextInt(8000);
+    final int expectedDefense = rng.nextInt(8000);
+    final ICardFactory magicFactory = new MagicCardFactory("Test card");
     checkCardConstruction(new MonsterCardFactory(expectedAttack, expectedDefense),
-        magicFactory);
+                          magicFactory);
 
     // Check that monster cards with different attacks and defenses are not equals
     int unexpectedAttack;
     do {
       unexpectedAttack = rng.nextInt(8000);
     } while (unexpectedAttack == expectedAttack);
-    assertNotEquals(testCard, new MonsterCard(unexpectedAttack, expectedDefense,
-        CardPosition.ATTACK));
+    assertNotEquals(testCard, new AbstractMonsterCard(unexpectedAttack, expectedDefense,
+                                                      CardPosition.ATTACK));
 
     int unexpectedDefense;
     do {
       unexpectedDefense = rng.nextInt(8000);
     } while (unexpectedDefense == expectedDefense);
-    assertNotEquals(testCard, new MonsterCard(expectedAttack, unexpectedDefense,
-        CardPosition.ATTACK));
+    assertNotEquals(testCard, new AbstractMonsterCard(expectedAttack, unexpectedDefense,
+                                                      CardPosition.ATTACK));
   }
 
   @Override
@@ -66,7 +64,7 @@ class MonsterCardTest extends AbstractCardTest {
 
   @Test
   void cardPositionTest() {
-    var testMonsterCard = new MonsterCard(1000, 1500, CardPosition.ATTACK);
+    final var testMonsterCard = new AbstractMonsterCard(1000, 1500, CardPosition.ATTACK);
     assertEquals(CardPosition.ATTACK, testMonsterCard.getPosition());
     testMonsterCard.setPosition(CardPosition.DEFENSE);
     assertEquals(CardPosition.DEFENSE, testMonsterCard.getPosition());
@@ -83,19 +81,19 @@ class MonsterCardTest extends AbstractCardTest {
   }
 
   void checkAttack(final CardPosition defenderPosition) {
-    var attackerMat = new PlayerMat();
-    var defenderMat = new PlayerMat();
-    MonsterCard defender, attacker;
+    final var attackerMat = new PlayerMat();
+    final var defenderMat = new PlayerMat();
+    AbstractMonsterCard defender, attacker;
     if (defenderPosition == CardPosition.ATTACK) {
-      defender = new MonsterCard(rng.nextInt(2000), Integer.MAX_VALUE,
-          defenderPosition);
-      attacker = new MonsterCard(rng.nextInt(2000) + 2000, Integer.MAX_VALUE,
-          CardPosition.ATTACK);
+      defender = new AbstractMonsterCard(rng.nextInt(2000), Integer.MAX_VALUE,
+                                         defenderPosition);
+      attacker = new AbstractMonsterCard(rng.nextInt(2000) + 2000, Integer.MAX_VALUE,
+                                         CardPosition.ATTACK);
     } else {
-      defender = new MonsterCard(Integer.MAX_VALUE, rng.nextInt(2000),
-          defenderPosition);
-      attacker = new MonsterCard(Integer.MAX_VALUE, rng.nextInt(2000) + 2000,
-          CardPosition.ATTACK);
+      defender = new AbstractMonsterCard(Integer.MAX_VALUE, rng.nextInt(2000),
+                                         defenderPosition);
+      attacker = new AbstractMonsterCard(Integer.MAX_VALUE, rng.nextInt(2000) + 2000,
+                                         CardPosition.ATTACK);
     }
     attacker.playTo(attackerMat);
     defender.playTo(defenderMat);
@@ -107,15 +105,15 @@ class MonsterCardTest extends AbstractCardTest {
     assertFalse(defenderMat.getMonsterZone().contains(defender));
 
     if (defenderPosition == CardPosition.ATTACK) {
-      attacker = new MonsterCard(rng.nextInt(2000), Integer.MAX_VALUE,
-          defenderPosition);
-      defender = new MonsterCard(rng.nextInt(2000) + 2000, Integer.MAX_VALUE,
-          CardPosition.ATTACK);
+      attacker = new AbstractMonsterCard(rng.nextInt(2000), Integer.MAX_VALUE,
+                                         defenderPosition);
+      defender = new AbstractMonsterCard(rng.nextInt(2000) + 2000, Integer.MAX_VALUE,
+                                         CardPosition.ATTACK);
     } else {
-      attacker = new MonsterCard(Integer.MAX_VALUE, rng.nextInt(2000),
-          defenderPosition);
-      defender = new MonsterCard(Integer.MAX_VALUE, rng.nextInt(2000) + 2000,
-          CardPosition.ATTACK);
+      attacker = new AbstractMonsterCard(Integer.MAX_VALUE, rng.nextInt(2000),
+                                         defenderPosition);
+      defender = new AbstractMonsterCard(Integer.MAX_VALUE, rng.nextInt(2000) + 2000,
+                                         CardPosition.ATTACK);
     }
     attacker.playTo(attackerMat);
     defender.playTo(defenderMat);

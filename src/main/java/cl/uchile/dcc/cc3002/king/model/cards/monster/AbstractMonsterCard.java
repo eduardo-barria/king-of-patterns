@@ -1,21 +1,23 @@
-package cl.uchile.dcc.cc3002.king.model.cards;
+package cl.uchile.dcc.cc3002.king.model.cards.monster;
 
 import cl.uchile.dcc.cc3002.king.model.PlayerMat;
+import cl.uchile.dcc.cc3002.king.model.cards.CardPosition;
 
 import java.util.Objects;
 
-public class MonsterCard implements ICard {
+public abstract class AbstractMonsterCard implements IMonsterCard {
 
   private final int attackPoints;
   private final int defensePoints;
+  protected int level;
   private CardPosition position;
   private PlayerMat mat;
 
-  public MonsterCard(final int attackPoints, final int defensePoints,
-      final CardPosition cardPosition) {
+  protected AbstractMonsterCard(final int attackPoints, final int defensePoints,
+                                final int level) {
     this.attackPoints = attackPoints;
     this.defensePoints = defensePoints;
-    this.position = cardPosition;
+    this.level = level;
   }
 
   @Override
@@ -24,9 +26,9 @@ public class MonsterCard implements ICard {
     this.mat = playerMat;
   }
 
-  public void attack(final MonsterCard opponent) {
+  public void attack(final AbstractMonsterCard opponent) {
     if (this.attackPoints > (opponent.position == CardPosition.ATTACK
-        ? opponent.attackPoints : opponent.defensePoints)) {
+                             ? opponent.attackPoints : opponent.defensePoints)) {
       opponent.removeFromMat();
     }
   }
@@ -46,30 +48,29 @@ public class MonsterCard implements ICard {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof MonsterCard)) {
+    if (!(o instanceof AbstractMonsterCard)) {
       return false;
     }
-    final MonsterCard that = (MonsterCard) o;
+    final AbstractMonsterCard that = (AbstractMonsterCard) o;
     return getAttackPoints() == that.getAttackPoints() &&
-        getDefensePoints() == that.getDefensePoints();
+           getDefensePoints() == that.getDefensePoints();
   }
   // endregion
 
   // region : Field accessors
+  @Override
   public int getAttackPoints() {
     return attackPoints;
   }
 
+  @Override
   public int getDefensePoints() {
     return defensePoints;
   }
 
-  public CardPosition getPosition() {
-    return position;
-  }
-
-  public void setPosition(final CardPosition position) {
-    this.position = position;
+  @Override
+  public int getLevel() {
+    return level;
   }
   // endregion
 }

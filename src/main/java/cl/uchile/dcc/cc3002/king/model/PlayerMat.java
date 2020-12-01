@@ -2,7 +2,8 @@ package cl.uchile.dcc.cc3002.king.model;
 
 import cl.uchile.dcc.cc3002.king.model.cards.ICard;
 import cl.uchile.dcc.cc3002.king.model.cards.MagicCard;
-import cl.uchile.dcc.cc3002.king.model.cards.MonsterCard;
+import cl.uchile.dcc.cc3002.king.model.cards.monster.AbstractMonsterCard;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -20,7 +21,7 @@ public class PlayerMat {
   /**
    * Adds a card to the monster zone.
    */
-  public void addMonsterCard(MonsterCard card) {
+  public void addMonsterCard(final AbstractMonsterCard card) {
     addCardTo(monsterZone, card);
   }
 
@@ -70,7 +71,11 @@ public class PlayerMat {
     magicZone.remove(magicCard);
   }
 
-  public void removeMonsterCard(final MonsterCard monsterCard) {
+  public void removeMonsterCard(final AbstractMonsterCard monsterCard) {
     monsterZone.remove(monsterCard);
+  }
+
+  public void sendToGraveyard(final ICard card) {
+
   }
 }

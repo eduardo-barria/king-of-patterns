@@ -15,4 +15,6 @@ public interface ICard {
    * Plays this card to it's corresponding zone on the player's mat.
    */
   void playTo(final PlayerMat playerMat);
+
+  void sendToGraveyard(PlayerMat mat);
 }

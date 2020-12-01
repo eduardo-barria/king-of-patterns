@@ -1,22 +1,20 @@
 package cl.uchile.dcc.cc3002.king.model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import cl.uchile.dcc.cc3002.king.model.cards.CardPosition;
 import cl.uchile.dcc.cc3002.king.model.cards.ICard;
+import cl.uchile.dcc.cc3002.king.model.cards.MagicCard;
+import cl.uchile.dcc.cc3002.king.model.cards.monster.AbstractMonsterCard;
+import cl.uchile.dcc.cc3002.king.model.cards.utils.ICardFactory;
 import cl.uchile.dcc.cc3002.king.model.cards.utils.MagicCardFactory;
 import cl.uchile.dcc.cc3002.king.model.cards.utils.MonsterCardFactory;
-import cl.uchile.dcc.cc3002.king.model.cards.MagicCard;
-import cl.uchile.dcc.cc3002.king.model.cards.MonsterCard;
-import cl.uchile.dcc.cc3002.king.model.cards.utils.ICardFactory;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test suite for the game mat.
@@ -45,9 +43,9 @@ class PlayerMatTest {
    */
   @Test
   void basicTest() {
-    var sameMat = testMat;
+    final var sameMat = testMat;
     assertEquals(sameMat, testMat);
-    var expectedMat = new PlayerMat();
+    final var expectedMat = new PlayerMat();
     assertNotEquals(testMat, new Object());
     assertEquals(expectedMat, testMat);
     assertEquals(expectedMat.hashCode(), testMat.hashCode());
@@ -56,7 +54,7 @@ class PlayerMatTest {
     assertNotEquals(testMat, new PlayerMat());
     assertNotEquals(testMat.hashCode(), new PlayerMat().hashCode());
     testMat = new PlayerMat();
-    testMat.addMonsterCard(new MonsterCard(1000, 1000, CardPosition.ATTACK));
+    testMat.addMonsterCard(new AbstractMonsterCard(1000, 1000, CardPosition.ATTACK));
     assertNotEquals(testMat, new PlayerMat());
     assertNotEquals(testMat.hashCode(), new PlayerMat().hashCode());
     testMat.addMagicCard(new MagicCard("Test card"));
@@ -66,7 +64,7 @@ class PlayerMatTest {
    * Checks that monster cards are added correctly to the mat.
    *
    * @see PlayerMat#getMonsterZone()
-   * @see PlayerMat#addMonsterCard(MonsterCard)
+   * @see PlayerMat#addMonsterCard(AbstractMonsterCard)
    */
   @Test
   void monsterZoneTest() {
@@ -93,8 +91,8 @@ class PlayerMatTest {
    *     {@code AbstractCard}.
    */
   private void testCardZone(final Supplier<List<ICard>> zoneGetter,
-      final Consumer<ICard> cardAdder,
-      final ICardFactory cardFactory) {
+                            final Consumer<ICard> cardAdder,
+                            final ICardFactory cardFactory) {
     assertTrue(zoneGetter.get().isEmpty());
     for (int i = 0; i < 5; i++) {
       cardAdder.accept(cardFactory.make());
@@ -104,8 +102,8 @@ class PlayerMatTest {
     assertEquals(5, zoneGetter.get().size());
   }
 
-  private void addMonsterCard(ICard card) {
-    testMat.addMonsterCard((MonsterCard) card);
+  private void addMonsterCard(final ICard card) {
+    testMat.addMonsterCard((AbstractMonsterCard) card);
   }
 
   /**
@@ -116,25 +114,26 @@ class PlayerMatTest {
    */
   @Test
   void magicZoneTest() {
-    ICardFactory magicFactory = new MagicCardFactory("Test card");
+    final ICardFactory magicFactory = new MagicCardFactory("Test card");
     // Using this notation we can pass method references to the test and reduce code
     // duplication.
     testCardZone(testMat::getMagicZone, this::addMagicCard, magicFactory);
   }
 
-  private void addMagicCard(ICard card) {
+  private void addMagicCard(final ICard card) {
     testMat.addMagicCard((MagicCard) card);
   }
 
   @Test
   void removeMagicCardTest() {
     checkCardRemoval(new MagicCard("Test card"), new MagicCard("Wrong card"),
-        testMat::getMagicZone, this::removeMagicCard, this::addMagicCard);
+                     testMat::getMagicZone, this::removeMagicCard, this::addMagicCard);
   }
 
-  private void checkCardRemoval(ICard expectedCard, ICard unexpectedCard,
-      Supplier<List<ICard>> zoneGetter, Consumer<ICard> cardRemover,
-      Consumer<ICard> cardAdder) {
+  private void checkCardRemoval(final ICard expectedCard, final ICard unexpectedCard,
+                                final Supplier<List<ICard>> zoneGetter,
+                                final Consumer<ICard> cardRemover,
+                                final Consumer<ICard> cardAdder) {
     assertTrue(zoneGetter.get().isEmpty());
     cardRemover.accept(expectedCard);
     assertTrue(zoneGetter.get().isEmpty());
@@ -152,12 +151,12 @@ class PlayerMatTest {
 
   @Test
   void removeMonsterCardTest() {
-    checkCardRemoval(new MonsterCard(1000, 1000, CardPosition.ATTACK),
-        new MonsterCard(0, 0, CardPosition.DEFENSE),
-        testMat::getMonsterZone, this::removeMonsterCard, this::addMonsterCard);
+    checkCardRemoval(new AbstractMonsterCard(1000, 1000, CardPosition.ATTACK),
+                     new AbstractMonsterCard(0, 0, CardPosition.DEFENSE),
+                     testMat::getMonsterZone, this::removeMonsterCard, this::addMonsterCard);
   }
 
   private void removeMonsterCard(final ICard monsterCard) {
-    testMat.removeMonsterCard((MonsterCard) monsterCard);
+    testMat.removeMonsterCard((AbstractMonsterCard) monsterCard);
   }
 }
