@@ -1,5 +1,6 @@
 package cl.uchile.dcc.cc3002.king.model.cards;
 
+import cl.uchile.dcc.cc3002.king.controller.CardPlacementException;
 import cl.uchile.dcc.cc3002.king.model.PlayerMat;
 
 /**
@@ -14,7 +15,9 @@ public interface ICard {
   /**
    * Plays this card to it's corresponding zone on the player's mat.
    */
-  void playTo(final PlayerMat playerMat);
+  void playTo(final PlayerMat playerMat) throws CardPlacementException;
 
-  void sendToGraveyard(PlayerMat mat);
+  void sendToGraveyard();
+
+  void removeFromMat();
 }

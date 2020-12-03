@@ -1,11 +1,14 @@
 package cl.uchile.dcc.cc3002.king.model.cards.monster;
 
+import cl.uchile.dcc.cc3002.king.controller.CardPlacementException;
+import cl.uchile.dcc.cc3002.king.model.Player;
 import cl.uchile.dcc.cc3002.king.model.PlayerMat;
+import cl.uchile.dcc.cc3002.king.model.cards.AbstractCard;
 import cl.uchile.dcc.cc3002.king.model.cards.CardPosition;
 
 import java.util.Objects;
 
-public abstract class AbstractMonsterCard implements IMonsterCard {
+public abstract class AbstractMonsterCard extends AbstractCard implements IMonsterCard {
 
   private final int attackPoints;
   private final int defensePoints;
@@ -13,28 +16,36 @@ public abstract class AbstractMonsterCard implements IMonsterCard {
   private CardPosition position;
   private PlayerMat mat;
 
-  protected AbstractMonsterCard(final int attackPoints, final int defensePoints,
-                                final int level) {
+  protected AbstractMonsterCard(final String name, final Player owner, final int attackPoints,
+                                final int defensePoints, final int level,
+                                final CardPosition position) {
+    super(name, owner);
     this.attackPoints = attackPoints;
     this.defensePoints = defensePoints;
     this.level = level;
+    this.position = position;
   }
 
   @Override
-  public void playTo(final PlayerMat playerMat) {
-    playerMat.addMonsterCard(this);
-    this.mat = playerMat;
+  public void playTo(final PlayerMat playerMat) throws CardPlacementException {
+    if (hasEnoughTributes(owner.getSelectedTributes().size())) {
+      playerMat.addMonsterCard(this);
+      this.mat = playerMat;
+    }
   }
+
+  @Override
+  public void removeFromMat() {
+
+  }
+
+  protected abstract boolean hasEnoughTributes(int tributes) throws CardPlacementException;
 
   public void attack(final AbstractMonsterCard opponent) {
     if (this.attackPoints > (opponent.position == CardPosition.ATTACK
                              ? opponent.attackPoints : opponent.defensePoints)) {
-      opponent.removeFromMat();
+      opponent.sendToGraveyard();
     }
-  }
-
-  private void removeFromMat() {
-    mat.removeMonsterCard(this);
   }
 
   // region : Utility
@@ -72,5 +83,16 @@ public abstract class AbstractMonsterCard implements IMonsterCard {
   public int getLevel() {
     return level;
   }
+
+  @Override
+  public CardPosition getPosition() {
+    return position;
+  }
+
+  @Override
+  public void setPosition(final CardPosition position) {
+    this.position = position;
+  }
+
   // endregion
 }

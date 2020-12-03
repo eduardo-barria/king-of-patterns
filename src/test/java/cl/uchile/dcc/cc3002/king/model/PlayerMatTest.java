@@ -1,9 +1,11 @@
 package cl.uchile.dcc.cc3002.king.model;
 
+import cl.uchile.dcc.cc3002.king.controller.CardPlacementException;
 import cl.uchile.dcc.cc3002.king.model.cards.CardPosition;
 import cl.uchile.dcc.cc3002.king.model.cards.ICard;
 import cl.uchile.dcc.cc3002.king.model.cards.MagicCard;
 import cl.uchile.dcc.cc3002.king.model.cards.monster.AbstractMonsterCard;
+import cl.uchile.dcc.cc3002.king.model.cards.monster.Rank1Monster;
 import cl.uchile.dcc.cc3002.king.model.cards.utils.ICardFactory;
 import cl.uchile.dcc.cc3002.king.model.cards.utils.MagicCardFactory;
 import cl.uchile.dcc.cc3002.king.model.cards.utils.MonsterCardFactory;
@@ -42,7 +44,7 @@ class PlayerMatTest {
    * @see PlayerMat#hashCode()
    */
   @Test
-  void basicTest() {
+  void basicTest() throws CardPlacementException {
     final var sameMat = testMat;
     assertEquals(sameMat, testMat);
     final var expectedMat = new PlayerMat();
@@ -54,7 +56,8 @@ class PlayerMatTest {
     assertNotEquals(testMat, new PlayerMat());
     assertNotEquals(testMat.hashCode(), new PlayerMat().hashCode());
     testMat = new PlayerMat();
-    testMat.addMonsterCard(new AbstractMonsterCard(1000, 1000, CardPosition.ATTACK));
+    testMat.addMonsterCard(
+        new Rank1Monster("", new Player("", 0), 1000, 1000, 0, CardPosition.ATTACK));
     assertNotEquals(testMat, new PlayerMat());
     assertNotEquals(testMat.hashCode(), new PlayerMat().hashCode());
     testMat.addMagicCard(new MagicCard("Test card"));
@@ -64,35 +67,31 @@ class PlayerMatTest {
    * Checks that monster cards are added correctly to the mat.
    *
    * @see PlayerMat#getMonsterZone()
-   * @see PlayerMat#addMonsterCard(AbstractMonsterCard)
    */
   @Test
-  void monsterZoneTest() {
+  void monsterZoneTest() throws CardPlacementException {
     // Using this notation we can pass method references to the test and reduce code
     // duplication.
     testCardZone(testMat::getMonsterZone, this::addMonsterCard,
-        new MonsterCardFactory(1000, 1000));
+                 new MonsterCardFactory(1000, 1000));
   }
 
   /**
    * Tests that a card is added correctly to the appropriate zone.
    *
-   * @param zoneGetter
-   *     a getter method.
-   *     A supplier is a method that receives no parameters and returns an object.
-   *     In this case, it returns an object of type {@code List<AbstractCard>}.
-   * @param cardAdder
-   *     an adder method.
-   *     A consumer is a method that receives a parameter and returns nothing.
-   *     In this case, it receives an object of type {@code AbstractCard}.
-   * @param cardFactory
-   *     the card type constructor.
-   *     In this context a factory is a functional interface that creates elements of type
-   *     {@code AbstractCard}.
+   * @param zoneGetter  a getter method.
+   *                    A supplier is a method that receives no parameters and returns an object.
+   *                    In this case, it returns an object of type {@code List<AbstractCard>}.
+   * @param cardAdder   an adder method.
+   *                    A consumer is a method that receives a parameter and returns nothing.
+   *                    In this case, it receives an object of type {@code AbstractCard}.
+   * @param cardFactory the card type constructor.
+   *                    In this context a factory is a functional interface that creates elements of type
+   *                    {@code AbstractCard}.
    */
   private void testCardZone(final Supplier<List<ICard>> zoneGetter,
-                            final Consumer<ICard> cardAdder,
-                            final ICardFactory cardFactory) {
+                            final CardAdder cardAdder,
+                            final ICardFactory cardFactory) throws CardPlacementException {
     assertTrue(zoneGetter.get().isEmpty());
     for (int i = 0; i < 5; i++) {
       cardAdder.accept(cardFactory.make());
@@ -102,7 +101,7 @@ class PlayerMatTest {
     assertEquals(5, zoneGetter.get().size());
   }
 
-  private void addMonsterCard(final ICard card) {
+  private void addMonsterCard(final ICard card) throws CardPlacementException {
     testMat.addMonsterCard((AbstractMonsterCard) card);
   }
 
@@ -113,19 +112,19 @@ class PlayerMatTest {
    * @see PlayerMat#addMagicCard(MagicCard)
    */
   @Test
-  void magicZoneTest() {
+  void magicZoneTest() throws CardPlacementException {
     final ICardFactory magicFactory = new MagicCardFactory("Test card");
     // Using this notation we can pass method references to the test and reduce code
     // duplication.
     testCardZone(testMat::getMagicZone, this::addMagicCard, magicFactory);
   }
 
-  private void addMagicCard(final ICard card) {
+  private void addMagicCard(final ICard card) throws CardPlacementException {
     testMat.addMagicCard((MagicCard) card);
   }
 
   @Test
-  void removeMagicCardTest() {
+  void removeMagicCardTest() throws CardPlacementException {
     checkCardRemoval(new MagicCard("Test card"), new MagicCard("Wrong card"),
                      testMat::getMagicZone, this::removeMagicCard, this::addMagicCard);
   }
@@ -133,7 +132,7 @@ class PlayerMatTest {
   private void checkCardRemoval(final ICard expectedCard, final ICard unexpectedCard,
                                 final Supplier<List<ICard>> zoneGetter,
                                 final Consumer<ICard> cardRemover,
-                                final Consumer<ICard> cardAdder) {
+                                final CardAdder cardAdder) throws CardPlacementException {
     assertTrue(zoneGetter.get().isEmpty());
     cardRemover.accept(expectedCard);
     assertTrue(zoneGetter.get().isEmpty());
@@ -150,13 +149,18 @@ class PlayerMatTest {
   }
 
   @Test
-  void removeMonsterCardTest() {
-    checkCardRemoval(new AbstractMonsterCard(1000, 1000, CardPosition.ATTACK),
-                     new AbstractMonsterCard(0, 0, CardPosition.DEFENSE),
+  void removeMonsterCardTest() throws CardPlacementException {
+    checkCardRemoval(new Rank1Monster("", new Player("", 0), 1000, 1000, 0, CardPosition.ATTACK),
+                     new Rank1Monster("", new Player("", 0), 0, 0, 0, CardPosition.DEFENSE),
                      testMat::getMonsterZone, this::removeMonsterCard, this::addMonsterCard);
   }
 
   private void removeMonsterCard(final ICard monsterCard) {
     testMat.removeMonsterCard((AbstractMonsterCard) monsterCard);
+  }
+
+  @FunctionalInterface
+  private interface CardAdder {
+    void accept(ICard iCard) throws CardPlacementException;
   }
 }

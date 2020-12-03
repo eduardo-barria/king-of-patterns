@@ -1,7 +1,10 @@
 package cl.uchile.dcc.cc3002.king.model.cards;
 
+import cl.uchile.dcc.cc3002.king.controller.CardPlacementException;
+import cl.uchile.dcc.cc3002.king.model.Player;
 import cl.uchile.dcc.cc3002.king.model.PlayerMat;
 import cl.uchile.dcc.cc3002.king.model.cards.monster.AbstractMonsterCard;
+import cl.uchile.dcc.cc3002.king.model.cards.monster.Rank1Monster;
 import cl.uchile.dcc.cc3002.king.model.cards.utils.ICardFactory;
 import cl.uchile.dcc.cc3002.king.model.cards.utils.MagicCardFactory;
 import cl.uchile.dcc.cc3002.king.model.cards.utils.MonsterCardFactory;
@@ -27,8 +30,8 @@ class AbstractMonsterCardTest extends AbstractCardTest {
   void setUp() {
     super.init();
     final var random = new Random(rngSeed);
-    testCard = new AbstractMonsterCard(random.nextInt(8000), random.nextInt(8000),
-                                       CardPosition.ATTACK);
+    testCard = new Rank1Monster("", new Player("", 0), random.nextInt(8000), random.nextInt(8000),
+                                0, CardPosition.ATTACK);
   }
 
   @Override
@@ -45,15 +48,17 @@ class AbstractMonsterCardTest extends AbstractCardTest {
     do {
       unexpectedAttack = rng.nextInt(8000);
     } while (unexpectedAttack == expectedAttack);
-    assertNotEquals(testCard, new AbstractMonsterCard(unexpectedAttack, expectedDefense,
-                                                      CardPosition.ATTACK));
+    assertNotEquals(testCard,
+                    new Rank1Monster("", new Player("", 0), unexpectedAttack, expectedDefense,
+                                     0, CardPosition.ATTACK));
 
     int unexpectedDefense;
     do {
       unexpectedDefense = rng.nextInt(8000);
     } while (unexpectedDefense == expectedDefense);
-    assertNotEquals(testCard, new AbstractMonsterCard(expectedAttack, unexpectedDefense,
-                                                      CardPosition.ATTACK));
+    assertNotEquals(testCard,
+                    new Rank1Monster("", new Player("", 0), expectedAttack, unexpectedDefense,
+                                     0, CardPosition.ATTACK));
   }
 
   @Override
@@ -64,36 +69,39 @@ class AbstractMonsterCardTest extends AbstractCardTest {
 
   @Test
   void cardPositionTest() {
-    final var testMonsterCard = new AbstractMonsterCard(1000, 1500, CardPosition.ATTACK);
+    final var testMonsterCard =
+        new Rank1Monster("", new Player("", 0), 1000, 1500, 0, CardPosition.ATTACK);
     assertEquals(CardPosition.ATTACK, testMonsterCard.getPosition());
     testMonsterCard.setPosition(CardPosition.DEFENSE);
     assertEquals(CardPosition.DEFENSE, testMonsterCard.getPosition());
   }
 
   @RepeatedTest(16)
-  void attackToAttackModeCardTest() {
+  void attackToAttackModeCardTest() throws CardPlacementException {
     checkAttack(CardPosition.ATTACK);
   }
 
   @RepeatedTest(16)
-  void attackToDefenseModeCardTest() {
+  void attackToDefenseModeCardTest() throws CardPlacementException {
     checkAttack(CardPosition.DEFENSE);
   }
 
-  void checkAttack(final CardPosition defenderPosition) {
+  void checkAttack(final CardPosition defenderPosition) throws CardPlacementException {
     final var attackerMat = new PlayerMat();
     final var defenderMat = new PlayerMat();
     AbstractMonsterCard defender, attacker;
     if (defenderPosition == CardPosition.ATTACK) {
-      defender = new AbstractMonsterCard(rng.nextInt(2000), Integer.MAX_VALUE,
-                                         defenderPosition);
-      attacker = new AbstractMonsterCard(rng.nextInt(2000) + 2000, Integer.MAX_VALUE,
-                                         CardPosition.ATTACK);
+      defender = new Rank1Monster("", new Player("", 0), rng.nextInt(2000), Integer.MAX_VALUE,
+                                  0, defenderPosition);
+      attacker =
+          new Rank1Monster("", new Player("", 0), rng.nextInt(2000) + 2000, Integer.MAX_VALUE,
+                           0, CardPosition.ATTACK);
     } else {
-      defender = new AbstractMonsterCard(Integer.MAX_VALUE, rng.nextInt(2000),
-                                         defenderPosition);
-      attacker = new AbstractMonsterCard(Integer.MAX_VALUE, rng.nextInt(2000) + 2000,
-                                         CardPosition.ATTACK);
+      defender = new Rank1Monster("", new Player("", 0), Integer.MAX_VALUE, rng.nextInt(2000),
+                                  0, defenderPosition);
+      attacker =
+          new Rank1Monster("", new Player("", 0), Integer.MAX_VALUE, rng.nextInt(2000) + 2000,
+                           0, CardPosition.ATTACK);
     }
     attacker.playTo(attackerMat);
     defender.playTo(defenderMat);
@@ -105,15 +113,17 @@ class AbstractMonsterCardTest extends AbstractCardTest {
     assertFalse(defenderMat.getMonsterZone().contains(defender));
 
     if (defenderPosition == CardPosition.ATTACK) {
-      attacker = new AbstractMonsterCard(rng.nextInt(2000), Integer.MAX_VALUE,
-                                         defenderPosition);
-      defender = new AbstractMonsterCard(rng.nextInt(2000) + 2000, Integer.MAX_VALUE,
-                                         CardPosition.ATTACK);
+      attacker = new Rank1Monster("", new Player("", 0), rng.nextInt(2000), Integer.MAX_VALUE,
+                                  0, defenderPosition);
+      defender =
+          new Rank1Monster("", new Player("", 0), rng.nextInt(2000) + 2000, Integer.MAX_VALUE,
+                           0, CardPosition.ATTACK);
     } else {
-      attacker = new AbstractMonsterCard(Integer.MAX_VALUE, rng.nextInt(2000),
-                                         defenderPosition);
-      defender = new AbstractMonsterCard(Integer.MAX_VALUE, rng.nextInt(2000) + 2000,
-                                         CardPosition.ATTACK);
+      attacker = new Rank1Monster("", new Player("", 0), Integer.MAX_VALUE, rng.nextInt(2000),
+                                  0, defenderPosition);
+      defender =
+          new Rank1Monster("", new Player("", 0), Integer.MAX_VALUE, rng.nextInt(2000) + 2000,
+                           0, CardPosition.ATTACK);
     }
     attacker.playTo(attackerMat);
     defender.playTo(defenderMat);

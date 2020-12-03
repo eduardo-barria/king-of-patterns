@@ -1,8 +1,11 @@
 package cl.uchile.dcc.cc3002.king.model;
 
+import cl.uchile.dcc.cc3002.king.controller.CardPlacementException;
+import cl.uchile.dcc.cc3002.king.controller.CardSelectionException;
 import cl.uchile.dcc.cc3002.king.model.cards.ICard;
 import cl.uchile.dcc.cc3002.king.model.cards.MagicCard;
 import cl.uchile.dcc.cc3002.king.model.cards.monster.AbstractMonsterCard;
+import cl.uchile.dcc.cc3002.king.model.cards.monster.IMonsterCard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,30 +18,27 @@ import java.util.Objects;
  */
 public class PlayerMat {
 
-  private final List<ICard> monsterZone = new ArrayList<>();
-  private final List<ICard> magicZone = new ArrayList<>();
+  private final List<IMonsterCard> monsterZone = new ArrayList<>();
+  private final List<MagicCard> magicZone = new ArrayList<>();
 
   /**
    * Adds a card to the monster zone.
    */
-  public void addMonsterCard(final AbstractMonsterCard card) {
-    addCardTo(monsterZone, card);
+  public void addMonsterCard(final IMonsterCard card) throws CardPlacementException {
+    if (monsterZone.size() < 5) {
+      monsterZone.add(card);
+    }
+    throw new CardPlacementException("Can't add a monster card if the monster zone is full.");
   }
 
   /**
    * Adds a card to the magic zone.
    */
-  public void addMagicCard(final MagicCard card) {
-    addCardTo(magicZone, card);
-  }
-
-  /**
-   * Adds a card to a zone in the game's mat.
-   */
-  private void addCardTo(final List<ICard> zone, final ICard card) {
-    if (zone.size() < 5) {
-      zone.add(card);
+  public void addMagicCard(final MagicCard card) throws CardPlacementException {
+    if (magicZone.size() < 5) {
+      magicZone.add(card);
     }
+    throw new CardPlacementException("Can't add a magic card if the magic zone is full.");
   }
 
   @Override
@@ -56,7 +56,7 @@ public class PlayerMat {
     }
     final PlayerMat playerMat = (PlayerMat) o;
     return getMonsterZone().equals(playerMat.getMonsterZone()) &&
-        getMagicZone().equals(playerMat.getMagicZone());
+           getMagicZone().equals(playerMat.getMagicZone());
   }
 
   public List<ICard> getMonsterZone() {
@@ -77,5 +77,14 @@ public class PlayerMat {
 
   public void sendToGraveyard(final ICard card) {
 
+  }
+
+  public IMonsterCard getMonsterCardAt(final int index) throws CardSelectionException {
+    if (index < monsterZone.size()) {
+      return monsterZone.get(index);
+    }
+    throw new CardSelectionException(
+        "Tried to select monster card at position " + index + ", but the monster zone has only "
+        + monsterZone.size() + " cards.");
   }
 }

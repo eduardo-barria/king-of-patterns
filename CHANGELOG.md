@@ -2,6 +2,7 @@
 
 ## Version 1.0
 
+- ``1.0.4.0``   Template pattern to implement tribute summons
 - ``1.0.3.2``   Deck and hand creation
 - ``1.0.3.1``   Basic player creation
 - ``1.0-B.217`` Monster card attack to defense position monster implementation
@@ -20,8 +21,7 @@
 - ``1.0-B.208`` Cards: Refactored common code to abstract test class
 - ``1.0-B.207`` Cards: Implemented ``MagicCardTest``
 - ``1.0-B.206`` Cards: Adapted mat's test to use the new card classes
-- ``1.0-B.205`` Cards: Implemented ``playCard`` mechanic (breaks Single Responsibility
-    Principle)
+- ``1.0-B.205`` Cards: Implemented ``playCard`` mechanic (breaks Single Responsibility Principle)
 - ``1.0-B.205`` Cards: Failing tests for playing magic and monster cards
 - ``1.0-B.204`` Cards: Fixed basic test
 - ``1.0-B.203`` Cards: Added type to cards and failing tests
