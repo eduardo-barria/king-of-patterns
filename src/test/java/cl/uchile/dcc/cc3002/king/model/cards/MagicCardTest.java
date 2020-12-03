@@ -33,10 +33,18 @@ class MagicCardTest extends AbstractCardTest {
   @RepeatedTest(20)
   void constructorTest() {
     final var rng = new Random(rngSeed);
-    final var monsterFactory =
-        new MonsterCardFactory(EXPECTED_NAME, rng.nextInt(8000), rng.nextInt(8000));
-    final var magicFactory = new MagicCardFactory(EXPECTED_NAME);
-    checkCardConstruction(magicFactory, monsterFactory);
+
+    final var expectedCard = new MagicCard(EXPECTED_NAME, null);
+    final var sameCard = testCard;
+    assertEquals(sameCard, testCard);
+    assertEquals(expectedCard, testCard);
+    assertEquals(expectedCard.hashCode(), testCard.hashCode(), "Hashes doesn't match");
+
+    final var differentTypeCard = new MonsterCard(EXPECTED_NAME, null, rng.nextInt(8000), rng.nextInt(8000), 0, null);
+    assertNotEquals(testCard, differentTypeCard);
+
+    final var differentNameCard = new MagicCard(UNEXPECTED_NAME, null);
+    assertNotEquals(differentNameCard, testCard);
   }
 
   @Override
