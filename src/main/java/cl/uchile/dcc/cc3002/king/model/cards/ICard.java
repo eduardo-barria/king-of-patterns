@@ -17,7 +17,9 @@ public interface ICard {
    */
   void playTo(final PlayerMat playerMat) throws CardPlacementException;
 
-  void sendToGraveyard();
+  void sendToGraveyard() throws CardPlacementException;
 
-  void removeFromMat();
+  void removeFromMat() throws CardPlacementException;
+
+  String getName();
 }

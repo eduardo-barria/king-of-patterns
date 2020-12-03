@@ -4,7 +4,7 @@ import cl.uchile.dcc.cc3002.king.controller.CardPlacementException;
 import cl.uchile.dcc.cc3002.king.controller.CardSelectionException;
 import cl.uchile.dcc.cc3002.king.model.cards.ICard;
 import cl.uchile.dcc.cc3002.king.model.cards.MagicCard;
-import cl.uchile.dcc.cc3002.king.model.cards.monster.AbstractMonsterCard;
+import cl.uchile.dcc.cc3002.king.model.cards.monster.MonsterCard;
 import cl.uchile.dcc.cc3002.king.model.cards.monster.IMonsterCard;
 
 import java.util.ArrayList;
@@ -71,7 +71,7 @@ public class PlayerMat {
     magicZone.remove(magicCard);
   }
 
-  public void removeMonsterCard(final AbstractMonsterCard monsterCard) {
+  public void removeMonsterCard(final MonsterCard monsterCard) {
     monsterZone.remove(monsterCard);
   }
 

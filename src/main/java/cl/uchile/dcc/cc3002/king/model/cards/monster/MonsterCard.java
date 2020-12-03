@@ -8,17 +8,16 @@ import cl.uchile.dcc.cc3002.king.model.cards.CardPosition;
 
 import java.util.Objects;
 
-public abstract class AbstractMonsterCard extends AbstractCard implements IMonsterCard {
+public class MonsterCard extends AbstractCard implements IMonsterCard {
 
   private final int attackPoints;
   private final int defensePoints;
   protected int level;
   private CardPosition position;
-  private PlayerMat mat;
 
-  protected AbstractMonsterCard(final String name, final Player owner, final int attackPoints,
-                                final int defensePoints, final int level,
-                                final CardPosition position) {
+  public MonsterCard(final String name, final Player owner, final int attackPoints,
+                     final int defensePoints, final int level,
+                     final CardPosition position) {
     super(name, owner);
     this.attackPoints = attackPoints;
     this.defensePoints = defensePoints;
@@ -33,11 +32,12 @@ public abstract class AbstractMonsterCard extends AbstractCard implements IMonst
   }
 
   @Override
-  public void removeFromMat() {
-
+  public void removeFromMat() throws CardPlacementException {
+    checkMat(CardType.MONSTER);
+    mat.removeMonsterCard(this);
   }
 
-  public void attack(final AbstractMonsterCard opponent) {
+  public void attack(final MonsterCard opponent) throws CardPlacementException {
     if (this.attackPoints > (opponent.position == CardPosition.ATTACK
                              ? opponent.attackPoints : opponent.defensePoints)) {
       opponent.sendToGraveyard();
@@ -55,12 +55,13 @@ public abstract class AbstractMonsterCard extends AbstractCard implements IMonst
     if (this == o) {
       return true;
     }
-    if (!(o instanceof AbstractMonsterCard)) {
+    if (!(o instanceof MonsterCard)) {
       return false;
     }
-    final AbstractMonsterCard that = (AbstractMonsterCard) o;
+    final MonsterCard that = (MonsterCard) o;
     return getAttackPoints() == that.getAttackPoints() &&
-           getDefensePoints() == that.getDefensePoints();
+           getDefensePoints() == that.getDefensePoints() &&
+           getName() == that.getName();
   }
   // endregion
 

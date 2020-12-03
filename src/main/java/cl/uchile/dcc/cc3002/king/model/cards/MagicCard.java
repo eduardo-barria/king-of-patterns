@@ -1,5 +1,7 @@
 package cl.uchile.dcc.cc3002.king.model.cards;
 
+import cl.uchile.dcc.cc3002.king.controller.CardPlacementException;
+import cl.uchile.dcc.cc3002.king.model.Player;
 import cl.uchile.dcc.cc3002.king.model.PlayerMat;
 
 import java.util.Objects;
@@ -11,20 +13,25 @@ import java.util.Objects;
  */
 public class MagicCard extends AbstractCard {
 
-  private final String name;
-
-  public MagicCard(final String name) {
-    this.name = name;
+  public MagicCard(final String name, final Player owner) {
+    super(name, owner);
   }
 
   @Override
-  public void playTo(final PlayerMat playerMat) {
+  public void playTo(final PlayerMat playerMat) throws CardPlacementException {
     playerMat.addMagicCard(this);
+    mat = playerMat;
+  }
+
+  @Override
+  public void removeFromMat() throws CardPlacementException {
+    checkMat(CardType.MAGIC);
+    mat.removeMagicCard(this);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, MagicCard.class);
+    return Objects.hash(getName(), MagicCard.class);
   }
 
   @Override
@@ -36,6 +43,6 @@ public class MagicCard extends AbstractCard {
       return false;
     }
     final MagicCard magicCard = (MagicCard) o;
-    return name.equals(magicCard.name);
+    return getName().equals(magicCard.getName());
   }
 }

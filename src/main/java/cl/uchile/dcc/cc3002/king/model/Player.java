@@ -1,5 +1,6 @@
 package cl.uchile.dcc.cc3002.king.model;
 
+import cl.uchile.dcc.cc3002.king.controller.CardPlacementException;
 import cl.uchile.dcc.cc3002.king.controller.CardSelectionException;
 import cl.uchile.dcc.cc3002.king.model.cards.ICard;
 import cl.uchile.dcc.cc3002.king.model.cards.MagicCard;
@@ -23,7 +24,7 @@ public class Player {
     this.lifePoints = lifePoints;
     this.deck = new ArrayDeque<>();
     for (int i = 0; i < 40; i++) {
-      deck.add(new MagicCard("Dummy"));
+      deck.add(new MagicCard("Dummy", this));
     }
     this.mat = new PlayerMat();
   }
@@ -37,7 +38,7 @@ public class Player {
     hand.add(deck.poll());
   }
 
-  public void sendToGraveyard(final ICard card) {
+  public void sendToGraveyard(final ICard card) throws CardPlacementException {
     card.removeFromMat();
     graveyard.add(card);
   }
