@@ -30,7 +30,7 @@ public abstract class AbstractMonsterCard extends AbstractCard implements IMonst
   public void playTo(final PlayerMat playerMat) throws CardPlacementException {
     final var selectedTributes = owner.getSelectedTributes();
     if (hasEnoughTributes(selectedTributes.size())) {
-      selectedTributes.forEach(tribute -> owner.sendToGraveyard(tribute));
+      selectedTributes.forEach(owner::sendToGraveyard);
       playerMat.addMonsterCard(this);
       this.mat = playerMat;
     }
