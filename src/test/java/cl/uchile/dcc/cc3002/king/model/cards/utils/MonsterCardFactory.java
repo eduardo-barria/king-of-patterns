@@ -3,7 +3,6 @@ package cl.uchile.dcc.cc3002.king.model.cards.utils;
 import cl.uchile.dcc.cc3002.king.model.Player;
 import cl.uchile.dcc.cc3002.king.model.cards.CardPosition;
 import cl.uchile.dcc.cc3002.king.model.cards.monster.IMonsterCard;
-import cl.uchile.dcc.cc3002.king.model.cards.monster.Rank1Monster;
 
 public class MonsterCardFactory implements ICardFactory {
 

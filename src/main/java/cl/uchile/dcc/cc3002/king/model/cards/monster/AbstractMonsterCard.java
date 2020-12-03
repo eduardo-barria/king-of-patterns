@@ -28,18 +28,14 @@ public abstract class AbstractMonsterCard extends AbstractCard implements IMonst
 
   @Override
   public void playTo(final PlayerMat playerMat) throws CardPlacementException {
-    if (hasEnoughTributes(owner.getSelectedTributes().size())) {
-      playerMat.addMonsterCard(this);
-      this.mat = playerMat;
-    }
+    playerMat.addMonsterCard(this);
+    this.mat = playerMat;
   }
 
   @Override
   public void removeFromMat() {
 
   }
-
-  protected abstract boolean hasEnoughTributes(int tributes) throws CardPlacementException;
 
   public void attack(final AbstractMonsterCard opponent) {
     if (this.attackPoints > (opponent.position == CardPosition.ATTACK

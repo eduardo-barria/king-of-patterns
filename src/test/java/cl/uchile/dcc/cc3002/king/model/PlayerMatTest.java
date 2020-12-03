@@ -5,7 +5,6 @@ import cl.uchile.dcc.cc3002.king.model.cards.CardPosition;
 import cl.uchile.dcc.cc3002.king.model.cards.ICard;
 import cl.uchile.dcc.cc3002.king.model.cards.MagicCard;
 import cl.uchile.dcc.cc3002.king.model.cards.monster.AbstractMonsterCard;
-import cl.uchile.dcc.cc3002.king.model.cards.monster.Rank1Monster;
 import cl.uchile.dcc.cc3002.king.model.cards.utils.ICardFactory;
 import cl.uchile.dcc.cc3002.king.model.cards.utils.MagicCardFactory;
 import cl.uchile.dcc.cc3002.king.model.cards.utils.MonsterCardFactory;

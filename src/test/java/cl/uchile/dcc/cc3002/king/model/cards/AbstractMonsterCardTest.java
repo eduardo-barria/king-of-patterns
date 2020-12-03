@@ -4,7 +4,6 @@ import cl.uchile.dcc.cc3002.king.controller.CardPlacementException;
 import cl.uchile.dcc.cc3002.king.model.Player;
 import cl.uchile.dcc.cc3002.king.model.PlayerMat;
 import cl.uchile.dcc.cc3002.king.model.cards.monster.AbstractMonsterCard;
-import cl.uchile.dcc.cc3002.king.model.cards.monster.Rank1Monster;
 import cl.uchile.dcc.cc3002.king.model.cards.utils.ICardFactory;
 import cl.uchile.dcc.cc3002.king.model.cards.utils.MagicCardFactory;
 import cl.uchile.dcc.cc3002.king.model.cards.utils.MonsterCardFactory;
