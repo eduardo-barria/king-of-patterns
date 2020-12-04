@@ -22,7 +22,6 @@ public interface ICard {
 
   void removeFromMat() throws CardPlacementException;
 
-  void activateEffect();
 
   String getName();
 

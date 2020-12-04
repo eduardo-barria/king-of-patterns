@@ -50,15 +50,15 @@ class PlayerMatTest {
     assertEquals(expectedMat, testMat);
     assertEquals(expectedMat.hashCode(), testMat.hashCode());
     // This lines will assure the branch coverage
-    testMat.addMagicCard(new MagicCard("Test card", null, null));
+    testMat.addMagicCard(new MagicCard("Test card", null));
     assertNotEquals(testMat, new PlayerMat());
     assertNotEquals(testMat.hashCode(), new PlayerMat().hashCode());
     testMat = new PlayerMat();
     testMat.addMonsterCard(
-        new MonsterCard("", new Player("", 0), 1000, 1000, 0, CardPosition.ATTACK, null));
+        new MonsterCard("", new Player("", 0), 1000, 1000, 0, CardPosition.ATTACK));
     assertNotEquals(testMat, new PlayerMat());
     assertNotEquals(testMat.hashCode(), new PlayerMat().hashCode());
-    testMat.addMagicCard(new MagicCard("Test card", null, null));
+    testMat.addMagicCard(new MagicCard("Test card", null));
   }
 
   /**
@@ -123,8 +123,8 @@ class PlayerMatTest {
 
   @Test
   void removeMagicCardTest() throws CardPlacementException {
-    checkCardRemoval(new MagicCard("Test card", new Player("", 100), null),
-                     new MagicCard("Wrong card", new Player("", 100), null),
+    checkCardRemoval(new MagicCard("Test card", new Player("", 100)),
+                     new MagicCard("Wrong card", new Player("", 100)),
                      testMat::getMagicZone, this::removeMagicCard, this::addMagicCard);
   }
 
@@ -149,9 +149,9 @@ class PlayerMatTest {
 
   @Test
   void removeMonsterCardTest() throws CardPlacementException {
-    checkCardRemoval(new MonsterCard("", new Player("", 0), 1000, 1000, 0, CardPosition.ATTACK,
-                                     null),
-                     new MonsterCard("", new Player("", 0), 0, 0, 0, CardPosition.DEFENSE, null),
+    checkCardRemoval(new MonsterCard("", new Player("", 0), 1000, 1000, 0, CardPosition.ATTACK
+                     ),
+                     new MonsterCard("", new Player("", 0), 0, 0, 0, CardPosition.DEFENSE),
                      testMat::getMonsterZone, this::removeMonsterCard, this::addMonsterCard);
   }
 

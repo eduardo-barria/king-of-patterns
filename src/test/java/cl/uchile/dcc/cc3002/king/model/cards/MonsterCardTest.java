@@ -28,7 +28,7 @@ class MonsterCardTest extends AbstractCardTest {
     super.init();
     final var random = new Random(rngSeed);
     testCard = new MonsterCard(EXPECTED_NAME, null, random.nextInt(8000), random.nextInt(8000),
-                               0, CardPosition.ATTACK, null);
+                               0, CardPosition.ATTACK);
   }
 
   @RepeatedTest(20)
@@ -44,12 +44,12 @@ class MonsterCardTest extends AbstractCardTest {
 
     final var differentAttackCard =
         new MonsterCard(EXPECTED_NAME, null, expectedAttack - 1, expectedDefense, 0,
-                        CardPosition.ATTACK, null);
+                        CardPosition.ATTACK);
     assertNotEquals(differentAttackCard, testCard);
 
     final var differentDefenseCard =
         new MonsterCard(EXPECTED_NAME, null, expectedAttack, expectedDefense - 1, 0,
-                        CardPosition.ATTACK, null);
+                        CardPosition.ATTACK);
     assertNotEquals(differentDefenseCard, testCard);
   }
 
@@ -62,7 +62,7 @@ class MonsterCardTest extends AbstractCardTest {
   @Test
   void cardPositionTest() {
     final var testMonsterCard =
-        new MonsterCard("", null, 1000, 1500, 0, CardPosition.ATTACK, null);
+        new MonsterCard("", null, 1000, 1500, 0, CardPosition.ATTACK);
     assertEquals(CardPosition.ATTACK, testMonsterCard.getPosition());
     testMonsterCard.setPosition(CardPosition.DEFENSE);
     assertEquals(CardPosition.DEFENSE, testMonsterCard.getPosition());
@@ -84,16 +84,16 @@ class MonsterCardTest extends AbstractCardTest {
     MonsterCard defender, attacker;
     if (defenderPosition == CardPosition.ATTACK) {
       defender = new MonsterCard("", null, rng.nextInt(2000), Integer.MAX_VALUE,
-                                 0, defenderPosition, null);
+                                 0, defenderPosition);
       attacker =
           new MonsterCard("", null, rng.nextInt(2000) + 2000, Integer.MAX_VALUE,
-                          0, CardPosition.ATTACK, null);
+                          0, CardPosition.ATTACK);
     } else {
       defender = new MonsterCard("", null, Integer.MAX_VALUE, rng.nextInt(2000),
-                                 0, defenderPosition, null);
+                                 0, defenderPosition);
       attacker =
           new MonsterCard("", null, Integer.MAX_VALUE, rng.nextInt(2000) + 2000,
-                          0, CardPosition.ATTACK, null);
+                          0, CardPosition.ATTACK);
     }
     attacker.playTo(attackerMat);
     defender.playTo(defenderMat);
@@ -106,14 +106,14 @@ class MonsterCardTest extends AbstractCardTest {
 
     if (defenderPosition == CardPosition.ATTACK) {
       attacker = new MonsterCard("", null, rng.nextInt(2000), Integer.MAX_VALUE,
-                                 0, defenderPosition, null);
+                                 0, defenderPosition);
       defender = new MonsterCard("", null, rng.nextInt(2000) + 2000, Integer.MAX_VALUE, 0,
-                                 CardPosition.ATTACK, null);
+                                 CardPosition.ATTACK);
     } else {
       attacker = new MonsterCard("", null, Integer.MAX_VALUE, rng.nextInt(2000),
-                                 0, defenderPosition, null);
+                                 0, defenderPosition);
       defender = new MonsterCard("", null, Integer.MAX_VALUE, rng.nextInt(2000) + 2000,
-                                 0, CardPosition.ATTACK, null);
+                                 0, CardPosition.ATTACK);
     }
     attacker.playTo(attackerMat);
     defender.playTo(defenderMat);

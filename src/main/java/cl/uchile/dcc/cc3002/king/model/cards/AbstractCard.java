@@ -16,19 +16,12 @@ import cl.uchile.dcc.cc3002.king.model.effects.IEffect;
 
 public abstract class AbstractCard implements ICard {
   protected final String name;
-  private final IEffect effect;
   protected Player owner;
   protected PlayerMat mat;
 
-  protected AbstractCard(final String name, final Player owner, final IEffect effect) {
+  protected AbstractCard(final String name, final Player owner) {
     this.name = name;
     this.owner = owner;
-    this.effect = effect;
-  }
-
-  @Override
-  public void activateEffect() {
-    effect.activate(this);
   }
 
   @Override

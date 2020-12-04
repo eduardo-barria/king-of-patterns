@@ -5,7 +5,6 @@ import cl.uchile.dcc.cc3002.king.model.Player;
 import cl.uchile.dcc.cc3002.king.model.PlayerMat;
 import cl.uchile.dcc.cc3002.king.model.cards.AbstractCard;
 import cl.uchile.dcc.cc3002.king.model.cards.CardPosition;
-import cl.uchile.dcc.cc3002.king.model.effects.IEffect;
 
 import java.util.Objects;
 
@@ -18,9 +17,8 @@ public class MonsterCard extends AbstractCard implements IMonsterCard {
 
   public MonsterCard(final String name, final Player owner, final int attackPoints,
                      final int defensePoints, final int level,
-                     final CardPosition position,
-                     final IEffect effect) {
-    super(name, owner, effect);
+                     final CardPosition position) {
+    super(name, owner);
     this.attackPoints = attackPoints;
     this.defensePoints = defensePoints;
     this.level = level;

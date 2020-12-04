@@ -3,7 +3,6 @@ package cl.uchile.dcc.cc3002.king.model.cards;
 import cl.uchile.dcc.cc3002.king.controller.CardPlacementException;
 import cl.uchile.dcc.cc3002.king.model.Player;
 import cl.uchile.dcc.cc3002.king.model.PlayerMat;
-import cl.uchile.dcc.cc3002.king.model.effects.IEffect;
 
 import java.util.Objects;
 
@@ -14,8 +13,8 @@ import java.util.Objects;
  */
 public class MagicCard extends AbstractCard {
 
-  public MagicCard(final String name, final Player owner, final IEffect effect) {
-    super(name, owner, effect);
+  public MagicCard(final String name, final Player owner) {
+    super(name, owner);
   }
 
   @Override

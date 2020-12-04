@@ -17,7 +17,7 @@ public class MonsterCardFactory implements ICardFactory {
 
   @Override
   public IMonsterCard make() {
-    return new MonsterCard(name, null, attack, defense, 0, null, null);
+    return new MonsterCard(name, null, attack, defense, 0, null);
   }
 
   @Override
