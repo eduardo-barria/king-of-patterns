@@ -14,4 +14,11 @@ public interface IEffect {
    * Applies this effect to a card.
    */
   void activate(ICard card);
+
+  String getId();
+
+  enum Effects {
+    HEAL,
+    NULL
+  }
 }

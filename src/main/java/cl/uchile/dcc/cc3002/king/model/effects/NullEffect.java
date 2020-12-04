@@ -13,10 +13,11 @@ import cl.uchile.dcc.cc3002.king.model.cards.ICard;
  *
  * @author <a href=mailto:ignacio.slater@ug.uchile.cl>Ignacio Slater Muñoz</a>
  */
-public class NullEffect implements IEffect {
+public class NullEffect extends AbstractEffect {
   private static NullEffect nullEffectInstance;
 
   private NullEffect() {
+    super(Effects.NULL.toString());
   }
 
   /**
