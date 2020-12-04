@@ -16,7 +16,7 @@ import java.util.Objects;
  *
  * @author Ignacio Slater M.
  */
-public class PlayerMat implements IGameComponent {
+public class PlayerMat {
 
   private final List<IMonsterCard> monsterZone = new ArrayList<>();
   private final List<MagicCard> magicZone = new ArrayList<>();
@@ -86,18 +86,5 @@ public class PlayerMat implements IGameComponent {
     throw new CardSelectionException(
         "Tried to select monster card at position " + index + ", but the monster zone has only "
         + monsterZone.size() + " cards.");
-  }
-
-  @Override
-  public void print() {
-    System.out.println(this.toString());
-  }
-
-  @Override
-  public String toString() {
-    return "PlayerMat{" +
-           "monsterZone=" + monsterZone +
-           ", magicZone=" + magicZone +
-           '}';
   }
 }

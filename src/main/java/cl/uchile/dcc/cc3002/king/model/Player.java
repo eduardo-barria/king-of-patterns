@@ -8,7 +8,7 @@ import cl.uchile.dcc.cc3002.king.model.cards.monster.IMonsterCard;
 
 import java.util.*;
 
-public class Player implements IGameComponent {
+public class Player {
 
   private final String name;
   private final Queue<ICard> deck;
@@ -74,22 +74,4 @@ public class Player implements IGameComponent {
     return List.copyOf(selectedTributes);
   }
   // endregion
-
-  @Override
-  public void print() {
-    System.out.println(this.toString());
-  }
-
-  @Override
-  public String toString() {
-    return "Player{" +
-           "name='" + name + '\'' +
-           ", deck=" + deck.size() +
-           ", hand=" + hand.size() +
-           ", graveyard=" + graveyard +
-           ", mat=" + mat +
-           ", lifePoints=" + lifePoints +
-           ", selectedTributes=" + selectedTributes +
-           '}';
-  }
 }
