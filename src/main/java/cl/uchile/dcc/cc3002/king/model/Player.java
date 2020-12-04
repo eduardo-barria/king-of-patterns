@@ -5,6 +5,7 @@ import cl.uchile.dcc.cc3002.king.controller.CardSelectionException;
 import cl.uchile.dcc.cc3002.king.model.cards.ICard;
 import cl.uchile.dcc.cc3002.king.model.cards.MagicCard;
 import cl.uchile.dcc.cc3002.king.model.cards.monster.IMonsterCard;
+import cl.uchile.dcc.cc3002.king.model.effects.NullEffect;
 
 import java.util.*;
 
@@ -15,8 +16,8 @@ public class Player {
   private final List<ICard> hand = new ArrayList<>();
   private final List<ICard> graveyard = new ArrayList<>();
   private final PlayerMat mat;
-  private final int lifePoints;
   private final List<IMonsterCard> selectedTributes = new ArrayList<>();
+  private int lifePoints;
 
 
   public Player(final String name, final int lifePoints) {
@@ -24,7 +25,7 @@ public class Player {
     this.lifePoints = lifePoints;
     this.deck = new ArrayDeque<>();
     for (int i = 0; i < 40; i++) {
-      deck.add(new MagicCard("Dummy", this));
+      deck.add(new MagicCard("Dummy", this, new NullEffect()));
     }
     this.mat = new PlayerMat();
   }
@@ -72,6 +73,10 @@ public class Player {
 
   public List<IMonsterCard> getSelectedTributes() {
     return List.copyOf(selectedTributes);
+  }
+
+  public void increaseLifePoints(final int lifePoints) {
+    this.lifePoints += lifePoints;
   }
   // endregion
 }

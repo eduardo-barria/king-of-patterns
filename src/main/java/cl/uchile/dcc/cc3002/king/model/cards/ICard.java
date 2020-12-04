@@ -1,6 +1,7 @@
 package cl.uchile.dcc.cc3002.king.model.cards;
 
 import cl.uchile.dcc.cc3002.king.controller.CardPlacementException;
+import cl.uchile.dcc.cc3002.king.model.Player;
 import cl.uchile.dcc.cc3002.king.model.PlayerMat;
 
 /**
@@ -21,5 +22,10 @@ public interface ICard {
 
   void removeFromMat() throws CardPlacementException;
 
+  void activateEffect();
+
   String getName();
+
+  Player getOwner();
+
 }

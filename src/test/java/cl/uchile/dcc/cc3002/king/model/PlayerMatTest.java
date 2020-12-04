@@ -7,7 +7,6 @@ import cl.uchile.dcc.cc3002.king.model.cards.MagicCard;
 import cl.uchile.dcc.cc3002.king.model.cards.monster.MonsterCard;
 import cl.uchile.dcc.cc3002.king.model.cards.utils.ICardFactory;
 import cl.uchile.dcc.cc3002.king.model.cards.utils.MagicCardFactory;
-import cl.uchile.dcc.cc3002.king.model.cards.utils.MonsterCardFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -51,15 +50,15 @@ class PlayerMatTest {
     assertEquals(expectedMat, testMat);
     assertEquals(expectedMat.hashCode(), testMat.hashCode());
     // This lines will assure the branch coverage
-    testMat.addMagicCard(new MagicCard("Test card", null));
+    testMat.addMagicCard(new MagicCard("Test card", null, null));
     assertNotEquals(testMat, new PlayerMat());
     assertNotEquals(testMat.hashCode(), new PlayerMat().hashCode());
     testMat = new PlayerMat();
     testMat.addMonsterCard(
-        new MonsterCard("", new Player("", 0), 1000, 1000, 0, CardPosition.ATTACK));
+        new MonsterCard("", new Player("", 0), 1000, 1000, 0, CardPosition.ATTACK, null));
     assertNotEquals(testMat, new PlayerMat());
     assertNotEquals(testMat.hashCode(), new PlayerMat().hashCode());
-    testMat.addMagicCard(new MagicCard("Test card", null));
+    testMat.addMagicCard(new MagicCard("Test card", null, null));
   }
 
   /**
@@ -124,8 +123,8 @@ class PlayerMatTest {
 
   @Test
   void removeMagicCardTest() throws CardPlacementException {
-    checkCardRemoval(new MagicCard("Test card", new Player("", 100)),
-                     new MagicCard("Wrong card", new Player("", 100)),
+    checkCardRemoval(new MagicCard("Test card", new Player("", 100), null),
+                     new MagicCard("Wrong card", new Player("", 100), null),
                      testMat::getMagicZone, this::removeMagicCard, this::addMagicCard);
   }
 
@@ -150,8 +149,9 @@ class PlayerMatTest {
 
   @Test
   void removeMonsterCardTest() throws CardPlacementException {
-    checkCardRemoval(new MonsterCard("", new Player("", 0), 1000, 1000, 0, CardPosition.ATTACK),
-                     new MonsterCard("", new Player("", 0), 0, 0, 0, CardPosition.DEFENSE),
+    checkCardRemoval(new MonsterCard("", new Player("", 0), 1000, 1000, 0, CardPosition.ATTACK,
+                                     null),
+                     new MonsterCard("", new Player("", 0), 0, 0, 0, CardPosition.DEFENSE, null),
                      testMat::getMonsterZone, this::removeMonsterCard, this::addMonsterCard);
   }
 

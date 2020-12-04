@@ -1,7 +1,5 @@
 package cl.uchile.dcc.cc3002.king.model.cards.utils;
 
-import cl.uchile.dcc.cc3002.king.model.Player;
-import cl.uchile.dcc.cc3002.king.model.cards.CardPosition;
 import cl.uchile.dcc.cc3002.king.model.cards.monster.IMonsterCard;
 import cl.uchile.dcc.cc3002.king.model.cards.monster.MonsterCard;
 
@@ -19,7 +17,7 @@ public class MonsterCardFactory implements ICardFactory {
 
   @Override
   public IMonsterCard make() {
-    return new MonsterCard(name, null, attack, defense, 0, null);
+    return new MonsterCard(name, null, attack, defense, 0, null, null);
   }
 
   @Override

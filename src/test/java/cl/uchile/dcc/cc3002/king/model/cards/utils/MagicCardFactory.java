@@ -12,7 +12,7 @@ public class MagicCardFactory implements ICardFactory {
 
   @Override
   public MagicCard make() {
-    return new MagicCard(name, null);
+    return new MagicCard(name, null, null);
   }
 
   @Override
