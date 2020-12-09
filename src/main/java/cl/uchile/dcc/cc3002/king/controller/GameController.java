@@ -9,6 +9,7 @@ public class GameController {
   private final Player playerA;
   private final Player playerB;
   private final LinkedList<Player> players = new LinkedList<>();
+  // public interface IEventHandler extends PropertyChangeListener
   private final IEventHandler cardPlayedHandler = new CardPlayedHandler(this);
 
   public GameController() {
