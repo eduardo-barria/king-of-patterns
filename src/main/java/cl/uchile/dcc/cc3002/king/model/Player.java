@@ -4,7 +4,12 @@ import cl.uchile.dcc.cc3002.king.controller.IEventHandler;
 import cl.uchile.dcc.cc3002.king.model.cards.ICard;
 import cl.uchile.dcc.cc3002.king.model.cards.MagicCard;
 
-import java.beans.PropertyChangeSupport;
+/* Un Bean es un componente software que tiene la particularidad de ser reutilizable y así evitar la tediosa tarea de programar los distintos componentes uno a uno.
+https://programacion.net/articulo/beans_basico_110/10
+https://kodejava.org/how-do-i-listen-for-beans-property-change-event/
+PropertyChangeSupport importa PropertyChangeListener y PropertyChangeEvent.
+*/
+import java.beans.PropertyChangeSupport; 
 import java.util.*;
 
 public class Player {
@@ -12,12 +17,13 @@ public class Player {
   private final PropertyChangeSupport cardPlayedEvent = new PropertyChangeSupport(this);
 
   private final String name;
-  private final Queue<ICard> deck;
+  private final Queue<ICard> deck; // deck: baraja; Queue: Cola
   private final List<ICard> hand = new ArrayList<>();
   private final int lifePoints;
   private final PlayerMat playerMat;
   private ICard selectedCard;
 
+  // final: The Object itself is immutable, but the reference to it might be mutable. Making it final makes the reference immutable as well.
   public Player(final String name, final int lifePoints) {
     this.name = name;
     this.lifePoints = lifePoints;
@@ -59,6 +65,7 @@ public class Player {
   }
 
   public void drawCard() {
+    // Q.poll(): This method returns the element at the front of the container or the head of the Queue Q. It returns null when the Queue is empty.
     hand.add(deck.poll());
   }
 
