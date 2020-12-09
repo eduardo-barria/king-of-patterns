@@ -21,6 +21,10 @@ public class GameController {
     playerB = new Player("Player B", 8000);
     players.add(playerA);
     players.add(playerB);
+    /*
+    Se configura que cardPlayedHandler (PropertyChangeListener) de esta clase este atento al método playcard() (cardPlayedEvent.firePropertyChange) de los objetos player A y B, mediante
+    sus cardPlayedEvent (PropertyChangeSupport). Cuando ocurra un cambio en la propiedad, se ejecutará el método propertyChange de la clase CardPlayedHandler.
+    */
     playerA.addListener(cardPlayedHandler);
     playerB.addListener(cardPlayedHandler);
   }
