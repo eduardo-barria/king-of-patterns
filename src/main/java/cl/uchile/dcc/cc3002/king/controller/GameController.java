@@ -12,6 +12,10 @@ public class GameController {
   private final IEventHandler cardPlayedHandler = new CardPlayedHandler(this);
 
   public GameController() {
+    /*
+    Constructor de GameController
+      Genera dos Player (A y B), los agrega a la lista enlazada player
+    */
     playerA = new Player("Player A", 8000);
     playerB = new Player("Player B", 8000);
     players.add(playerA);
@@ -21,6 +25,12 @@ public class GameController {
   }
 
   public void endTurn() {
+    /*
+    remueve al primer player de players y lo agrega al final.
+    */
+    /*
+    The Java.util.LinkedList.removeFirst() method is used to remove the first element from a linked list. This function also returns the first element after removing it.
+    */
     var tmp = players.removeFirst();
     players.add(tmp);
   }
