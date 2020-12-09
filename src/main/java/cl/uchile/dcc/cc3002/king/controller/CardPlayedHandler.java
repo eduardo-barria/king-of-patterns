@@ -4,6 +4,7 @@ import cl.uchile.dcc.cc3002.king.model.cards.ICard;
 
 import java.beans.PropertyChangeEvent;
 
+// public interface IEventHandler extends PropertyChangeListener
 public class CardPlayedHandler implements IEventHandler {
   private final GameController controller;
 
