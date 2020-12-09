@@ -65,7 +65,7 @@ public class Player {
   }
 
   public void drawCard() {
-    // Q.poll(): This method returns the element at the front of the container or the head of the Queue Q. It returns null when the Queue is empty.
+    // Q.poll(): The poll() method of Queue Interface returns and removes the element at the front the container. It returns null when the Queue is empty.
     hand.add(deck.poll());
   }
 
@@ -74,6 +74,10 @@ public class Player {
   }
 
   public void addListener(IEventHandler handler) {
+    /*
+    Añade un objeto que estará atento a cuando se ejecute cardPlayedEvent.firePropertyChange en player y reaccionará con su método propertychange.
+    En este caso se ejecuta cardPlayedEvent.firePropertyChange en playCard().
+    */
     cardPlayedEvent.addPropertyChangeListener(handler);
   }
 }
